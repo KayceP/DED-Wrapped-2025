@@ -7,21 +7,21 @@ function SlideFFXIV({ stats }) {
   const topRaids = ffxiv.topRaids || []
   const topContent = ffxiv.topContent || []
 
-  // Map job names to icon filenames
+  // Map job names to icon filenames (data uses lowercase)
   const getJobIcon = (jobName) => {
     const iconMap = {
-      'Bard': 'Bard.png',
-      'Blue Mage': 'BlueMage.png',
-      'Dancer': 'Dancer.png',
-      'Monk': 'Monk.png',
-      'Ninja': 'Ninja.png',
-      'Reaper': 'Reaper.png',
-      'Sage': 'Sage.png',
-      'Scholar': 'Scholar.png',
-      'Summoner': 'Summoner.png',
-      'Warrior': 'Warrior.png'
+      'bard': 'Bard.png',
+      'bluemage': 'BlueMage.png',
+      'dancer': 'Dancer.png',
+      'monk': 'Monk.png',
+      'ninja': 'Ninja.png',
+      'reaper': 'Reaper.png',
+      'sage': 'Sage.png',
+      'scholar': 'Scholar.png',
+      'summoner': 'Summoner.png',
+      'warrior': 'Warrior.png'
     }
-    return iconMap[jobName] || null
+    return iconMap[jobName.toLowerCase().replace(/\s+/g, '')] || null
   }
 
   return (
@@ -51,7 +51,7 @@ function SlideFFXIV({ stats }) {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        border: '2px solid var(--ffxiv-gold)'
+                        border: '2px solid var(--guild-red)'
                       }}>
                         <img
                           src={`${import.meta.env.BASE_URL}assets/${iconFile}`}
