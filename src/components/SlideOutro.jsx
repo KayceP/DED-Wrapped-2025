@@ -61,16 +61,13 @@ function SlideOutro({ stats }) {
               <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Creative Director:</span> Zi
             </div>
             <div>
-              <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>DED Officers:</span> Thorn, Val Reina, A Cade, Cleo "League Dealer" Linieh, AArekin AAlatus
-            </div>
-            <div>
-              <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Community Feedback:</span> The DED Fam
+              <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>DED Beta Testers:</span> Thorn, Val Reina, A Cade, Cleo "League Dealer" Linieh, AArekin AAlatus
             </div>
             <div>
               <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Presentation Magic:</span> React & D3
             </div>
             <div>
-              <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Late Night Fuel:</span> Cold Brew Coffee & FFXIV
+              <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Coding Fuel:</span> Cold Brew & FFXIV Music
             </div>
           </div>
         </div>
