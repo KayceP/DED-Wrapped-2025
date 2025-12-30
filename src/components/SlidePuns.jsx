@@ -7,7 +7,7 @@ function SlidePuns({ stats }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/altani-puns-2025.json')
+    fetch(`${import.meta.env.BASE_URL}altani-puns-2025.json`)
       .then(response => response.json())
       .then(data => {
         setPunData(data)

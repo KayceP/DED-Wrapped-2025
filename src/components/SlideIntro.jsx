@@ -8,7 +8,7 @@ function SlideIntro({ stats }) {
       <div className="slide-content">
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <img
-            src="/assets/guild_banner.jpg"
+            src={`${import.meta.env.BASE_URL}assets/guild_banner.jpg`}
             alt="DED Guild Banner"
             style={{
               width: '100%',

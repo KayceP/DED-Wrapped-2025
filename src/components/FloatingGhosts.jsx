@@ -157,7 +157,7 @@ function FloatingGhosts({ count = 5, delayStart = 0 }) {
           }}
         >
           <img
-            src="/assets/ghost_transparent.png"
+            src={`${import.meta.env.BASE_URL}assets/ghost_transparent.png`}
             alt=""
             style={{
               width: '100%',
