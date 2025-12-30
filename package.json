@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run post-build",
+    "post-build": "if exist public\\data\\stats.json (copy public\\data\\stats.json dist\\data\\stats.json) else (if exist public\\data\\stats.production.json copy public\\data\\stats.production.json dist\\data\\stats.json)",
     "preview": "vite preview",
     "process-data": "node scripts/process-data.js",
     "search": "node tools/search-json.js",
     "analyze-puns": "node scripts/analyze-puns.js",
-    "export-puns": "node scripts/export-all-puns.js"
+    "export-puns": "node scripts/export-all-puns.js",
+    "prepare-deploy": "copy public\\data\\stats.json public\\data\\stats.production.json && git add public\\data\\stats.production.json && git commit -m \"Update production stats\" || echo \"No stats.json found - run npm run process-data first\""
   },
   "dependencies": {
     "react": "^18.2.0",

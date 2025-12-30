@@ -25,5 +25,6 @@ dist-ssr
 
 # Generated data
 public/data/stats.json
+!public/data/stats.production.json
 
 
