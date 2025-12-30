@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npm run post-build",
-    "post-build": "if exist public\\data\\stats.json (copy public\\data\\stats.json dist\\data\\stats.json) else (if exist public\\data\\stats.production.json copy public\\data\\stats.production.json dist\\data\\stats.json)",
+    "build": "vite build",
     "preview": "vite preview",
     "process-data": "node scripts/process-data.js",
     "search": "node tools/search-json.js",

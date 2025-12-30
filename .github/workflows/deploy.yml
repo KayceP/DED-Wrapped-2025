@@ -40,7 +40,11 @@ jobs:
           echo "Skipping data processing - stats.json should be committed"
       
       - name: Prepare production data
-        run: cp public/data/stats.production.json public/data/stats.json
+        run: |
+          mkdir -p public/data
+          cp public/data/stats.production.json public/data/stats.json
+          echo "Production stats prepared"
+          ls -la public/data/
 
       - name: Build
         run: npm run build
