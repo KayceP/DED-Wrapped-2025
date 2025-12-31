@@ -4,6 +4,7 @@ import FloatingGhosts from './FloatingGhosts'
 function SlideReactions({ stats }) {
   const topReactions = stats?.topReactions?.slice(0, 10) || []
 
+
   return (
     <div className="slide">
       <FloatingGhosts count={Math.floor(Math.random() * 8) + 3} />
@@ -15,19 +16,19 @@ function SlideReactions({ stats }) {
           {topReactions.map((msg, index) => (
             <div
               key={`${msg.messageId}-${index}`}
-              className={`reaction-card ${!msg.content ? 'no-screenshot' : ''}`}
+              className="reaction-card"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="reaction-screenshot">
                 <img
-                  src={`${import.meta.env.BASE_URL}assets/Most_Reacted_Messages_${index + 1}.png`}
+                  src={`/assets/Most_Reacted_Messages_${index + 1}.png`}
                   alt={`Most reacted message ${index + 1}`}
                   onError={(e) => {
                     e.target.style.display = 'none'
                   }}
                   style={{
                     width: '100%',
-                    height: 'auto',
+                    height: '200px',
                     borderRadius: '8px',
                     objectFit: 'cover'
                   }}
