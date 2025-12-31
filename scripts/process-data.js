@@ -553,6 +553,12 @@ function aggregateStats() {
     metric: 'avgMessageLength'
   }
 
+  // Message Volume Champion: Most total characters typed
+  achievements.messageVolume = {
+    top5: getTop5(Object.values(stats.users), 20, 'totalMessageLength'),
+    metric: 'totalMessageLength'
+  }
+
   // Build final stats object
   const finalStats = {
     summary: {

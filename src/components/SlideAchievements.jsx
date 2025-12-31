@@ -69,6 +69,8 @@ function SlideAchievements({ stats }) {
           return user.uniqueEmojiCount ? `${user.uniqueEmojiCount} unique emojis` : '0 emojis'
         case 'avgMessageLength':
           return user.avgMessageLength ? `${Math.round(user.avgMessageLength)} chars avg` : 'N/A'
+        case 'totalMessageLength':
+          return user.totalMessageLength ? `${user.totalMessageLength.toLocaleString()} characters` : 'N/A'
         default:
           return 'N/A'
       }
@@ -226,6 +228,16 @@ function SlideAchievements({ stats }) {
         rank: index + 1,
         name: user?.nickname || user?.name || 'Unknown',
         value: formatMetric(user, statsAchievements?.wordSmith?.metric),
+        isWinner: index === 0
+      })) || []
+    },
+    {
+      title: "📝 Message Volume Champion",
+      description: "Typed the most characters in 2025",
+      top5: statsAchievements?.messageVolume?.top5?.map((user, index) => ({
+        rank: index + 1,
+        name: user?.nickname || user?.name || 'Unknown',
+        value: formatMetric(user, statsAchievements?.messageVolume?.metric),
         isWinner: index === 0
       })) || []
     }
