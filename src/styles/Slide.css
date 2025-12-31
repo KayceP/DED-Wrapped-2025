@@ -658,6 +658,13 @@
     padding: 1rem;
   }
 
+  .reaction-card:hover .reaction-screenshot {
+    width: 90vw;
+    height: 70vh;
+    max-width: 90vw;
+    max-height: 70vh;
+  }
+
   .growth-chart-container {
     height: 200px;
     gap: 4px;
@@ -947,8 +954,42 @@
 }
 
 .reaction-card:hover .reaction-screenshot {
-  height: 300px;
-  transition: height 0.3s ease;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  height: 80vh;
+  max-width: 800px;
+  max-height: 600px;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.reaction-card:hover .reaction-screenshot img {
+  border-radius: 8px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.reaction-card:hover {
+  z-index: 999;
+}
+
+/* Backdrop for zoomed images */
+.reaction-card:hover::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 998;
+  backdrop-filter: blur(2px);
 }
 
 .reaction-screenshot {
