@@ -25,7 +25,7 @@ function SlideReactions({ stats }) {
             >
               <div className="reaction-screenshot">
                 <img
-                  src={`/assets/Most_Reacted_Messages_${index + 1}.png`}
+                  src={`${import.meta.env.BASE_URL}assets/Most_Reacted_Messages_${index + 1}.png`}
                   alt={`Most reacted message ${index + 1}`}
                   onError={(e) => {
                     e.target.style.display = 'none'
@@ -72,7 +72,7 @@ function SlideReactions({ stats }) {
           >
             <div className="enlarged-image-container">
               <img
-                src={`/assets/Most_Reacted_Messages_${enlargedImage + 1}.png`}
+                src={`${import.meta.env.BASE_URL}assets/Most_Reacted_Messages_${enlargedImage + 1}.png`}
                 alt={`Enlarged reaction message ${enlargedImage + 1}`}
                 className="enlarged-image"
                 onClick={(e) => e.stopPropagation()}
