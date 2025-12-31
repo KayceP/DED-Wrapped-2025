@@ -13,6 +13,7 @@ function SlideReactions({ stats }) {
       <div className="slide-content">
         <h2 className="slide-title">Most Reacted Messages</h2>
         <p className="slide-subtitle">The messages that got the most love</p>
+        <p className="slide-subtitle-small">Click any card to enlarge</p>
 
         <div className="reactions-grid">
           {topReactions.map((msg, index) => (

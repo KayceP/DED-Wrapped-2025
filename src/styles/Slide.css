@@ -49,6 +49,16 @@
   animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
+.slide-subtitle-small {
+  font-size: 0.9rem;
+  color: var(--guild-text-dim);
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 300;
+  opacity: 0.8;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
