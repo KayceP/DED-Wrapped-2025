@@ -56,6 +56,13 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Copy data files to dist
+        run: |
+          mkdir -p dist/data
+          cp public/data/stats.json dist/data/
+          echo "✅ Data files copied to dist"
+          ls -la dist/data/
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
