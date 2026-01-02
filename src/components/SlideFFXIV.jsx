@@ -81,8 +81,7 @@ function SlideFFXIV({ stats }) {
 
   // Special mappings for different behavior
   const specialMappings = {
-    'yo tea': 'gif', // Shows GIF instead of emojis
-    'crime': 'gif' // Shows thorn_rozu.gif instead of emojis
+    'yo tea': 'gif' // Shows GIF instead of emojis
   }
 
   const handleMouseMove = (e) => {
@@ -91,17 +90,10 @@ function SlideFFXIV({ stats }) {
 
   const handleWordHover = (content) => {
     if (specialMappings[content] === 'gif') {
-      // Special case for different GIF mappings
-      let gifFile = ''
-      if (content === 'yo tea') {
-        gifFile = 'ffxiv-perfect-alexander.gif'
-      } else if (content === 'crime') {
-        gifFile = 'thorn_rozu.gif'
-      }
-
+      // Special case for yo tea - show Alexander GIF
       setFloatingEmojis([{
         id: `${content}-gif`,
-        emoji: gifFile,
+        emoji: 'ffxiv-perfect-alexander.gif',
         offsetX: 0,
         offsetY: -50,
         rotation: 0,
