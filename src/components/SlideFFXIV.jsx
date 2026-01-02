@@ -84,9 +84,9 @@ function SlideFFXIV({ stats }) {
                         />
                       </div>
                     )}
-                    <div className="stat-card-title">{item.job}</div>
-                    <div className="stat-card-value">{item.count.toLocaleString()}</div>
-                  </div>
+                  <div className="stat-card-title">{item.job}</div>
+                  <div className="stat-card-value">{item.count.toLocaleString()}</div>
+                </div>
                 )
               })}
             </div>
@@ -128,9 +128,9 @@ function SlideFFXIV({ stats }) {
                         />
                       </div>
                     )}
-                    <div className="stat-card-title">{item.raid}</div>
-                    <div className="stat-card-value">{item.count.toLocaleString()}</div>
-                  </div>
+                  <div className="stat-card-title">{item.raid}</div>
+                  <div className="stat-card-value">{item.count.toLocaleString()}</div>
+                </div>
                 )
               })}
             </div>

@@ -35,7 +35,7 @@ function SlideIntro({ stats }) {
         </p>
         <div style={{ textAlign: 'center' }}>
           <p style={{ fontSize: '1.2rem', color: 'var(--guild-text-dim)' }}>
-            Press → or Space to continue
+            Press →, Space, or swipe on your screen to continue
           </p>
         </div>
       </div>

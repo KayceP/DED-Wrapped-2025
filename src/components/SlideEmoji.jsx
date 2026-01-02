@@ -54,6 +54,16 @@ function SlideEmoji({ stats }) {
     .sort(([,a], [,b]) => b - a)
     .slice(0, 10)
 
+  // Get top combined emojis (messages + reactions)
+  const allCombinedEmojis = [...allMessageEmojis, ...allReactionEmojis]
+    .reduce((acc, [emoji, count]) => {
+      acc[emoji] = (acc[emoji] || 0) + count
+      return acc
+    }, {})
+  const topCombinedEmojis = Object.entries(allCombinedEmojis)
+    .sort(([,a], [,b]) => b - a)
+    .slice(0, 8)
+
   // Get top custom emojis (combined from messages and reactions)
   const allCustomEmojis = [...messageCustomEmojisCount, ...reactionCustomEmojisCount]
   const topCustomEmojis = allCustomEmojis
@@ -100,8 +110,8 @@ function SlideEmoji({ stats }) {
         {/* Emoji Rankings Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-          gap: '2rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '1.5rem',
           marginTop: '2rem'
         }}>
           {/* Most Used Emojis in Messages */}
@@ -252,6 +262,86 @@ function SlideEmoji({ stats }) {
                             width: `${percentage}%`,
                             height: '100%',
                             background: 'linear-gradient(90deg, var(--ffxiv-purple), var(--guild-red))',
+                            borderRadius: '3px',
+                            transition: 'width 0.5s ease'
+                          }} />
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Most Used Overall Emojis */}
+          {topCombinedEmojis.length > 0 && (
+            <div style={{
+              background: 'var(--guild-bg-card)',
+              borderRadius: '12px',
+              padding: '1.5rem',
+              border: '2px solid rgba(75, 85, 99, 0.3)'
+            }}>
+              <h3 style={{
+                marginBottom: '1rem',
+                color: 'var(--guild-orange)',
+                fontSize: '1.1rem',
+                textAlign: 'center'
+              }}>
+                Overall Most Used
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                {topCombinedEmojis.map(([emoji, count], index) => {
+                  const maxCount = topCombinedEmojis[0][1]
+                  const percentage = (count / maxCount) * 100
+                  return (
+                    <div key={emoji} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem'
+                    }}>
+                      <div style={{
+                        width: '2rem',
+                        height: '2rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0
+                      }}>
+                        {renderEmoji(emoji, '1.2rem')}
+                      </div>
+                      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                        <div style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center'
+                        }}>
+                          <span style={{
+                            fontSize: '0.9rem',
+                            fontWeight: 'bold',
+                            color: 'var(--guild-text)'
+                          }}>
+                            #{index + 1}
+                          </span>
+                          <span style={{
+                            fontSize: '0.8rem',
+                            color: 'var(--ffxiv-text)',
+                            fontWeight: 'bold'
+                          }}>
+                            {count.toLocaleString()}
+                          </span>
+                        </div>
+                        <div style={{
+                          width: '100%',
+                          height: '6px',
+                          background: 'rgba(75, 85, 99, 0.2)',
+                          borderRadius: '3px',
+                          overflow: 'hidden'
+                        }}>
+                          <div style={{
+                            width: `${percentage}%`,
+                            height: '100%',
+                            background: 'linear-gradient(90deg, var(--guild-orange), var(--ffxiv-purple), var(--guild-red))',
                             borderRadius: '3px',
                             transition: 'width 0.5s ease'
                           }} />
