@@ -450,21 +450,27 @@ function aggregateStats() {
         
         // Job mentions
         FFXIV_KEYWORDS.jobs.forEach(job => {
-          if (contentLower.includes(job)) {
+          // Use word boundaries to avoid substring matches
+          const regex = new RegExp(`\\b${job.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i')
+          if (regex.test(contentLower)) {
             stats.ffxiv.jobMentions[job] = (stats.ffxiv.jobMentions[job] || 0) + 1
           }
         })
-        
+
         // Raid mentions
         FFXIV_KEYWORDS.raids.forEach(raid => {
-          if (contentLower.includes(raid)) {
+          // Use word boundaries to avoid substring matches
+          const regex = new RegExp(`\\b${raid.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i')
+          if (regex.test(contentLower)) {
             stats.ffxiv.raidMentions[raid] = (stats.ffxiv.raidMentions[raid] || 0) + 1
           }
         })
         
         // Content mentions
         FFXIV_KEYWORDS.content.forEach(content => {
-          if (contentLower.includes(content)) {
+          // Use word boundaries to avoid substring matches
+          const regex = new RegExp(`\\b${content.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i')
+          if (regex.test(contentLower)) {
             stats.ffxiv.contentMentions[content] = (stats.ffxiv.contentMentions[content] || 0) + 1
           }
         })
@@ -472,7 +478,9 @@ function aggregateStats() {
         // DED-specific content mentions
         Object.entries(FFXIV_KEYWORDS.dedContent).forEach(([category, keywords]) => {
           keywords.forEach(keyword => {
-            if (contentLower.includes(keyword.toLowerCase())) {
+            // Use word boundaries to avoid substring matches
+            const regex = new RegExp(`\\b${keyword.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i')
+            if (regex.test(contentLower)) {
               stats.ffxiv.dedContentMentions[category] = (stats.ffxiv.dedContentMentions[category] || 0) + 1
             }
           })
