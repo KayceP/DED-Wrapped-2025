@@ -389,7 +389,7 @@
   align-items: flex-end;
   gap: 8px;
   height: 250px;
-  padding: 2rem 0 1rem 0; /* Added 1rem top padding for bouncing emojis */
+  padding: 3rem 0 1rem 0; /* Increased to 2rem top padding for full emoji bounce */
   margin-top: 1rem;
   position: relative;
 }
@@ -717,7 +717,7 @@
   .growth-chart-container {
     height: 180px;
     gap: 2px;
-    padding: 1.5rem 0 0.5rem 0; /* Added top padding for bouncing emojis */
+    padding: 2.5rem 0 0.5rem 0; /* Increased top padding for full emoji bounce */
   }
 
   .month-bar-container {
@@ -775,7 +775,7 @@
   .growth-chart-container {
     height: 200px;
     gap: 4px;
-    padding-top: 1.5rem; /* Added top padding for bouncing emojis on mobile */
+    padding-top: 2.5rem; /* Increased top padding for full emoji bounce on mobile */
     overflow-x: auto; /* Allow horizontal scrolling if needed */
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
