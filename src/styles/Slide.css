@@ -389,7 +389,7 @@
   align-items: flex-end;
   gap: 8px;
   height: 250px;
-  padding: 3rem 0 1rem 0; /* Increased to 2rem top padding for full emoji bounce */
+  padding: 1rem 0;
   margin-top: 1rem;
   position: relative;
 }
@@ -717,7 +717,7 @@
   .growth-chart-container {
     height: 180px;
     gap: 2px;
-    padding: 2.5rem 0 0.5rem 0; /* Increased top padding for full emoji bounce */
+    padding: 0.5rem 0;
   }
 
   .month-bar-container {
@@ -775,7 +775,6 @@
   .growth-chart-container {
     height: 200px;
     gap: 4px;
-    padding-top: 2.5rem; /* Increased top padding for full emoji bounce on mobile */
     overflow-x: auto; /* Allow horizontal scrolling if needed */
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
@@ -1312,20 +1311,82 @@
   box-shadow: 0 8px 25px rgba(220, 38, 38, 0.15);
 }
 
-/* Floating emoji animation */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-10px) rotate(5deg);
-  }
-  50% {
-    transform: translateY(-5px) rotate(-5deg);
-  }
-  75% {
-    transform: translateY(-15px) rotate(3deg);
-  }
+/* Community Art Gallery Styles */
+.art-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding: 0 1rem;
 }
 
+.art-item {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.art-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.art-item-hover-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: white;
+  padding: 2rem 1rem 1rem 1rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.art-item:hover .art-item-hover-text {
+  opacity: 1;
+}
+
+.art-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  cursor: pointer;
+}
+
+.art-modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mobile responsiveness for art gallery */
+@media (max-width: 768px) {
+  .art-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .art-item-hover-text {
+    padding: 1.5rem 0.5rem 0.5rem 0.5rem;
+    font-size: 1rem;
+  }
+}
 

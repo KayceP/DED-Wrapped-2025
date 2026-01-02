@@ -76,37 +76,22 @@ function App() {
 
   const onTouchStart = (e) => {
     setTouchEnd(null)
-    setTouchStart({
-      x: e.targetTouches[0].clientX,
-      y: e.targetTouches[0].clientY
-    })
+    setTouchStart(e.targetTouches[0].clientX)
   }
 
-  const onTouchMove = (e) => setTouchEnd({
-    x: e.targetTouches[0].clientX,
-    y: e.targetTouches[0].clientY
-  })
+  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX)
 
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
 
-    const deltaX = touchStart.x - touchEnd.x
-    const deltaY = touchStart.y - touchEnd.y
-    const absDeltaX = Math.abs(deltaX)
-    const absDeltaY = Math.abs(deltaY)
-
-    // Only trigger swipe if horizontal movement is greater than vertical
-    // and exceeds minimum distance
-    if (absDeltaX > absDeltaY && absDeltaX > minSwipeDistance) {
-      const isLeftSwipe = deltaX > 0
-      const isRightSwipe = deltaX < 0
-
-      if (isLeftSwipe && currentSlide < slides.length - 1) {
-        handleNext()
-      }
-      if (isRightSwipe && currentSlide > 0) {
-        handlePrev()
-      }
+    if (isLeftSwipe && currentSlide < slides.length - 1) {
+      handleNext()
+    }
+    if (isRightSwipe && currentSlide > 0) {
+      handlePrev()
     }
   }
 
