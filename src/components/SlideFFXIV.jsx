@@ -349,11 +349,15 @@ function SlideFFXIV({ stats }) {
                           slutSpan.style.cursor = 'pointer'
                           slutSpan.textContent = 'slut'
 
+                          // Store reference to state setters in the element
+                          slutSpan._setEasterEggTimestamp = setEasterEggTimestamp
+                          slutSpan._setShowSlutEasterEgg = setShowSlutEasterEgg
+
                           // Attach click handler directly to the span
-                          slutSpan.addEventListener('click', (e) => {
+                          slutSpan.addEventListener('click', function(e) {
                             e.stopPropagation() // Prevent event bubbling
-                            setEasterEggTimestamp(new Date().toISOString())
-                            setShowSlutEasterEgg(true)
+                            this._setEasterEggTimestamp(new Date().toISOString())
+                            this._setShowSlutEasterEgg(true)
                           })
 
                           // Add the span to the element
