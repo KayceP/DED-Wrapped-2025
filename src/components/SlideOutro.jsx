@@ -3,11 +3,11 @@ import '../styles/Slide.css'
 import FloatingGhosts from './FloatingGhosts'
 
 function SlideOutro({ stats }) {
-  const [faqExpanded, setFaqExpanded] = useState(false)
+  const [activeSection, setActiveSection] = useState(null) // 'credits' or 'faq'
   const [expandedQuestions, setExpandedQuestions] = useState({})
 
-  const toggleFaq = () => {
-    setFaqExpanded(!faqExpanded)
+  const toggleSection = (section) => {
+    setActiveSection(activeSection === section ? null : section)
   }
 
   const toggleQuestion = (questionId) => {
@@ -48,73 +48,95 @@ function SlideOutro({ stats }) {
           </p>
         </div>
 
+        {/* Credits and FAQ Section */}
         <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-          <h3 style={{
-            fontSize: '1.4rem',
-            color: 'var(--guild-orange)',
-            marginBottom: '1.5rem',
-            fontWeight: 'bold'
-          }}>
-            Credits
-          </h3>
           <div style={{
             display: 'flex',
-            flexDirection: 'column',
-            gap: '0.8rem',
-            alignItems: 'center',
-            fontSize: '1rem',
-            color: 'var(--guild-text)'
+            gap: '1rem',
+            justifyContent: 'center',
+            marginBottom: '1rem',
+            flexWrap: 'wrap'
           }}>
-            <div>
-              <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Data Scraping:</span> Zi's Mammet
-            </div>
-            <div>
-              <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Analytics Library:</span> Chat-analytics
-            </div>
-            <div>
-              <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Programmer & Creative Director:</span> Zi
-            </div>
-            <div>
-              <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>DED Beta Testers:</span> Thorn, Val Reina, A Cade, Cleo "League Dealer" Linieh, AArekin AAlatus
-            </div>
-            <div>
-              <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Presentation Magic:</span> React & D3
-            </div>
-            <div>
-              <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Coding Fuel:</span> Cold Brew & FFXIV Music
-            </div>
+            <button
+              onClick={() => toggleSection('credits')}
+              style={{
+                background: activeSection === 'credits' ? 'var(--guild-orange)' : 'var(--guild-bg-card)',
+                border: '2px solid var(--guild-orange)',
+                color: activeSection === 'credits' ? 'var(--guild-bg-dark)' : 'var(--guild-orange)',
+                padding: '0.75rem 1.5rem',
+                borderRadius: '25px',
+                fontSize: '1.1rem',
+                fontWeight: 'bold',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                minWidth: '120px'
+              }}
+            >
+              Credits {activeSection === 'credits' ? '▼' : '▶'}
+            </button>
+
+            <button
+              onClick={() => toggleSection('faq')}
+              style={{
+                background: activeSection === 'faq' ? 'var(--guild-orange)' : 'var(--guild-bg-card)',
+                border: '2px solid var(--guild-orange)',
+                color: activeSection === 'faq' ? 'var(--guild-bg-dark)' : 'var(--guild-orange)',
+                padding: '0.75rem 1.5rem',
+                borderRadius: '25px',
+                fontSize: '1.1rem',
+                fontWeight: 'bold',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                minWidth: '120px'
+              }}
+            >
+              FAQ {activeSection === 'faq' ? '▼' : '▶'}
+            </button>
           </div>
-        </div>
 
-        {/* FAQ Section */}
-        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-          <button
-            onClick={toggleFaq}
-            style={{
+          {/* Credits Content */}
+          {activeSection === 'credits' && (
+            <div style={{
+              maxWidth: '600px',
+              margin: '0 auto',
               background: 'var(--guild-bg-card)',
-              border: '2px solid var(--guild-orange)',
-              color: 'var(--guild-orange)',
-              padding: '0.75rem 1.5rem',
-              borderRadius: '25px',
-              fontSize: '1.1rem',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
+              border: '1px solid rgba(75, 85, 99, 0.3)',
+              borderRadius: '8px',
+              padding: '1.5rem',
               marginBottom: '1rem'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.background = 'var(--guild-orange)'
-              e.target.style.color = 'var(--guild-bg-dark)'
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.background = 'var(--guild-bg-card)'
-              e.target.style.color = 'var(--guild-orange)'
-            }}
-          >
-            FAQ {faqExpanded ? '▼' : '▶'}
-          </button>
+            }}>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.8rem',
+                alignItems: 'center',
+                fontSize: '1rem',
+                color: 'var(--guild-text)'
+              }}>
+                <div>
+                  <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Data Scraping:</span> Zi's Mammet
+                </div>
+                <div>
+                  <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Analytics Library:</span> Chat-analytics
+                </div>
+                <div>
+                  <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Programmer & Creative Director:</span> Zi
+                </div>
+                <div>
+                  <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>DED Beta Testers:</span> Thorn, Val Reina, A Cade, Cleo "League Dealer" Linieh, AArekin AAlatus
+                </div>
+                <div>
+                  <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Presentation Magic:</span> React & D3
+                </div>
+                <div>
+                  <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Coding Fuel:</span> Cold Brew & FFXIV Music
+                </div>
+              </div>
+            </div>
+          )}
 
-          {faqExpanded && (
+          {/* FAQ Content */}
+          {activeSection === 'faq' && (
             <div style={{
               maxWidth: '800px',
               margin: '0 auto',
