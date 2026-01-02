@@ -338,7 +338,26 @@ function SlideFFXIV({ stats }) {
                         // Find the slut text element and replace it
                         const slutTextElement = document.getElementById(`slut-text-${index}`)
                         if (slutTextElement) {
-                          slutTextElement.innerHTML = '<span id="slut-easter-egg-link" style="color: var(--guild-orange); text-decoration: underline; cursor: pointer;">slut</span>'
+                          // Clear existing content
+                          slutTextElement.innerHTML = ''
+
+                          // Create the clickable span
+                          const slutSpan = document.createElement('span')
+                          slutSpan.id = 'slut-easter-egg-link'
+                          slutSpan.style.color = 'var(--guild-orange)'
+                          slutSpan.style.textDecoration = 'underline'
+                          slutSpan.style.cursor = 'pointer'
+                          slutSpan.textContent = 'slut'
+
+                          // Attach click handler directly to the span
+                          slutSpan.addEventListener('click', (e) => {
+                            e.stopPropagation() // Prevent event bubbling
+                            setEasterEggTimestamp(new Date().toISOString())
+                            setShowSlutEasterEgg(true)
+                          })
+
+                          // Add the span to the element
+                          slutTextElement.appendChild(slutSpan)
 
                           // Show the slut emoji at the same time as the text
                           handleWordHover('slut')
@@ -364,11 +383,6 @@ function SlideFFXIV({ stats }) {
                       handleWordLeave()
                     }
                   }}
-                  onClick={item.content === 'slut' ? (() => {
-                    // Open the modal directly
-                    setEasterEggTimestamp(new Date().toISOString())
-                    setShowSlutEasterEgg(true)
-                  }) : undefined}
                 >
                   {item.content === 'slut' ? (
                     <span id={`slut-text-${index}`}>     ({item.count.toLocaleString()})</span>
