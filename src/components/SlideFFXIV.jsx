@@ -51,7 +51,8 @@ function SlideFFXIV({ stats }) {
   const emojiMappings = {
     'chud': 'stressed:1384623535951187988',
     'mah wife': 'heartheart:1248721347459158168',
-    'wolves den': 'STINKY:1384614772355502130'
+    'wolves den': 'STINKY:1384614772355502130',
+    'phys ranged': 'Cat_In_Agony:1384621392787538114'
   }
 
   const handleMouseMove = (e) => {

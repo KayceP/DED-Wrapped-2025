@@ -41,7 +41,8 @@ const FFXIV_KEYWORDS = {
     'mah wife': ['mah wife', 'maah wiife', 'maaah wiiife', 'maah wife', 'mah wiife', 'mah wiiife', 'mah wiiiiffe', 'mah wiiiiiffe', 'mah wiiiife', 'mah wiiiiife', 'mah wiiiiffee', 'mah wiifffee', 'mah wiifffee', 'mah wiiiifeee', 'mah wiiiffee', 'mah wifffee', 'mah wiiffee'],
     'sister wives': ['sister wives', 'sister wife'],
     'wolves den': ['wolves den', 'wolves\' den', 'wolfs den'],
-    'slut': ['slut']
+    'slut': ['slut'],
+    'phys ranged': ['phys ranged']
   }
 }
 
