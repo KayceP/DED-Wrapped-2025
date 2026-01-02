@@ -4,6 +4,7 @@ import FloatingGhosts from './FloatingGhosts'
 
 function SlideFFXIV({ stats }) {
   const ffxiv = stats?.ffxiv || {}
+  const emojis = stats?.emojis || {}
   const topJobs = ffxiv.topJobs || []
   const topRaids = ffxiv.topRaids || []
   const topContent = ffxiv.topContent || []
@@ -16,11 +17,41 @@ function SlideFFXIV({ stats }) {
   const [floatingEmojis, setFloatingEmojis] = useState([])
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
-  // Emoji mappings for floating effects
+  // Render emoji function (same as in SlideEmoji)
+  const renderEmoji = (emojiKey, size = '2rem') => {
+    // Check if it's a custom emoji (format: name:id)
+    if (typeof emojiKey === 'string' && emojiKey.includes(':')) {
+      const emojiData = emojis.messageCustomEmojis?.[emojiKey] || emojis.reactionCustomEmojis?.[emojiKey]
+      if (emojiData) {
+        const extension = emojiData.animated ? 'gif' : 'png'
+        const imageUrl = `https://cdn.discordapp.com/emojis/${emojiData.id}.${extension}`
+        return (
+          <img
+            src={imageUrl}
+            alt={emojiData.name}
+            style={{
+              width: size,
+              height: size,
+              objectFit: 'contain',
+              verticalAlign: 'middle'
+            }}
+            onError={(e) => {
+              // Fallback to text if image fails to load
+              e.target.style.display = 'none'
+            }}
+          />
+        )
+      }
+    }
+    // Fallback for unknown emojis
+    return <span>{emojiKey}</span>
+  }
+
+  // Emoji mappings for floating effects (using Discord emoji keys)
   const emojiMappings = {
-    'chud': '🤯',
-    'mah wife': '💕',
-    'wolves den': '💨'
+    'chud': 'stressed:1384623535951187988',
+    'mah wife': 'heartheart:1248721347459158168',
+    'wolves den': 'STINKY:1384614772355502130'
   }
 
   const handleMouseMove = (e) => {
@@ -410,12 +441,11 @@ function SlideFFXIV({ stats }) {
               top: mousePosition.y + floatingEmoji.offsetY,
               pointerEvents: 'none',
               zIndex: 9999,
-              fontSize: '2rem',
               animation: 'float 2s ease-in-out infinite',
               transform: `rotate(${floatingEmoji.rotation}deg)`
             }}
           >
-            {floatingEmoji.emoji}
+            {renderEmoji(floatingEmoji.emoji, '2rem')}
           </div>
         ))}
       </div>
