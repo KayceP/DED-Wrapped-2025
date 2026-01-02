@@ -32,7 +32,6 @@ function SlideArt({ stats }) {
 
     // Geru
     { filename: 'Geru_1.png', artist: 'Geru', type: 'image' },
-    { filename: 'Geru_2.png', artist: 'Geru', type: 'image' },
     { filename: 'Geru_3.png', artist: 'Geru', type: 'image' },
     { filename: 'Geru_4.png', artist: 'Geru', type: 'image' },
     { filename: 'Geru_5.png', artist: 'Geru', type: 'image' },
