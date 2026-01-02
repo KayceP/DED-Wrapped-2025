@@ -89,6 +89,44 @@
   padding: 8px 16px;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 20px;
+  white-space: nowrap;
+  min-width: fit-content;
+}
+
+/* Mobile adjustments for slide controls */
+@media (max-width: 768px) {
+  .slide-controls {
+    padding: 0 10px;
+  }
+
+  .slide-indicator {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  .nav-button {
+    width: 55px;
+    height: 55px;
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-controls {
+    gap: 8px;
+    padding: 0 5px;
+  }
+
+  .slide-indicator {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .nav-button {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
 }
 
 

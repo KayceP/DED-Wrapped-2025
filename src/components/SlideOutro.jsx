@@ -16,7 +16,7 @@ function SlideOutro({ stats }) {
             src={`${import.meta.env.BASE_URL}assets/end_cardL.jpg`}
             alt="End Card"
             style={{
-              maxWidth: '120%',
+              maxWidth: '100%',
               maxHeight: '450px',
               borderRadius: '12px',
               boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',

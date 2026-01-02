@@ -713,6 +713,27 @@
   .reaction-card {
     padding: 0.75rem;
   }
+
+  .growth-chart-container {
+    height: 180px;
+    gap: 2px;
+    padding: 0.5rem 0;
+  }
+
+  .month-bar-container {
+    min-width: 0; /* Allow flex items to shrink */
+  }
+
+  .month-label {
+    font-size: 0.6rem;
+    transform: rotate(-45deg);
+    transform-origin: center;
+    margin-top: 0.5rem;
+  }
+
+  .month-count {
+    font-size: 0.5rem;
+  }
 }
 
   .enlarged-image-close {
@@ -725,6 +746,9 @@
   .growth-chart-container {
     height: 200px;
     gap: 4px;
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
   }
 
   .month-label {
