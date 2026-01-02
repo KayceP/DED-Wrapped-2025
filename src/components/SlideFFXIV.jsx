@@ -179,7 +179,6 @@ function SlideFFXIV({ stats }) {
       'bard': 'Bard.png',
       'bluemage': 'BlueMage.png',
       'dancer': 'Dancer.png',
-      'dragoon': 'Dragoon.png',
       'monk': 'Monk.png',
       'ninja': 'Ninja.png',
       'reaper': 'Reaper.png',
@@ -305,237 +304,238 @@ function SlideFFXIV({ stats }) {
         )}
 
         {topContent.length > 0 && (
-          <div style={{ marginTop: '3rem' }}>
-            <h3 style={{ fontSize: '1.5rem', color: 'var(--ffxiv-gold)', marginBottom: '1rem' }}>
-              Top 10 Content Mentions
-            </h3>
-            <div className="word-cloud">
-              {topContent.map((item, index) => (
-                <span
-                  key={item.content}
-                  className="word-item"
-                  style={{ animationDelay: `${index * 0.05}s` }}
-                >
-                  {item.content === 'phys' ? 'phys ranged' : item.content} ({item.count.toLocaleString()})
-                </span>
-              ))}
+            <div style={{ marginTop: '3rem' }}>
+              <h3 style={{ fontSize: '1.5rem', color: 'var(--ffxiv-gold)', marginBottom: '1rem' }}>
+                Top 10 Content Mentions
+              </h3>
+              <div className="word-cloud">
+                {topContent.map((item, index) => (
+                  <span
+                    key={item.content}
+                    className="word-item"
+                    style={{ animationDelay: `${index * 0.05}s` }}
+                  >
+                    {item.content === 'phys' ? 'phys ranged' : item.content} ({item.count.toLocaleString()})
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {topDedContent.length > 0 && (
-          <div style={{ marginTop: '3rem' }}>
-            <h3 style={{ fontSize: '1.5rem', color: 'var(--guild-orange)', marginBottom: '1rem' }}>
-              DED Specific Content Mentions
-            </h3>
-            <div className="word-cloud">
-              {topDedContent.map((item, index) => (
-                <span
-                  key={item.content}
-                  className="word-item"
-                  style={{
-                    animationDelay: `${index * 0.05}s`,
-                    background: 'var(--guild-bg-card)',
-                    border: '1px solid rgba(249, 115, 22, 0.3)',
-                    cursor: item.content === 'slut' ? 'pointer' : 'default'
-                  }}
-                  onMouseEnter={() => {
-                    if (item.content === 'slut') {
-                      // Start 2-second timeout for slut easter egg
-                      const timeout = setTimeout(() => {
-                        // Find the slut text element and replace it
+          {topDedContent.length > 0 && (
+            <div style={{ marginTop: '3rem' }}>
+              <h3 style={{ fontSize: '1.5rem', color: 'var(--guild-orange)', marginBottom: '1rem' }}>
+                DED Specific Content Mentions
+              </h3>
+              <div className="word-cloud">
+                {topDedContent.map((item, index) => (
+                  <span
+                    key={item.content}
+                    className="word-item"
+                    style={{
+                      animationDelay: `${index * 0.05}s`,
+                      background: 'var(--guild-bg-card)',
+                      border: '1px solid rgba(249, 115, 22, 0.3)',
+                      cursor: item.content === 'slut' ? 'pointer' : 'default'
+                    }}
+                    onMouseEnter={() => {
+                      if (item.content === 'slut') {
+                        // Start 2-second timeout for slut easter egg
+                        const timeout = setTimeout(() => {
+                          // Find the slut text element and replace it
+                          const slutTextElement = document.getElementById(`slut-text-${index}`)
+                          if (slutTextElement) {
+                            // Clear existing content
+                            slutTextElement.innerHTML = ''
+
+                            // Create the clickable span
+                            const slutSpan = document.createElement('span')
+                            slutSpan.id = 'slut-easter-egg-link'
+                            slutSpan.style.color = 'var(--guild-orange)'
+                            slutSpan.style.textDecoration = 'underline'
+                            slutSpan.style.cursor = 'pointer'
+                            slutSpan.textContent = 'slut'
+
+                            // Store reference to state setters in the element
+                            slutSpan._setSlutEasterEggTimestamp = setSlutEasterEggTimestamp
+                            slutSpan._setShowSlutEasterEgg = setShowSlutEasterEgg
+
+                            // Attach click handler directly to the span
+                            slutSpan.addEventListener('click', function(e) {
+                              e.stopPropagation() // Prevent event bubbling
+                              this._setSlutEasterEggTimestamp(new Date().toISOString())
+                              this._setShowSlutEasterEgg(true)
+                            })
+
+                            // Add the span to the element
+                            slutTextElement.appendChild(slutSpan)
+
+                            // Show the slut emoji at the same time as the text
+                            handleWordHover('slut')
+                          }
+                        }, 2000) // 2 seconds for both text and emojis
+                        setSlutHoverTimeout(timeout)
+                      } else if (specialMappings[item.content] === 'gif') {
+                        handleWordHover(item.content)
+                      } else if (emojiMappings[item.content]) {
+                        handleWordHover(item.content)
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      if (item.content === 'slut') {
+                        // Clear the timeout if mouse leaves before 2 seconds
+                        if (slutHoverTimeout) {
+                          clearTimeout(slutHoverTimeout)
+                          setSlutHoverTimeout(null)
+                        }
+                        // Reset the DOM element back to original state
                         const slutTextElement = document.getElementById(`slut-text-${index}`)
                         if (slutTextElement) {
-                          // Clear existing content
-                          slutTextElement.innerHTML = ''
-
-                          // Create the clickable span
-                          const slutSpan = document.createElement('span')
-                          slutSpan.id = 'slut-easter-egg-link'
-                          slutSpan.style.color = 'var(--guild-orange)'
-                          slutSpan.style.textDecoration = 'underline'
-                          slutSpan.style.cursor = 'pointer'
-                          slutSpan.textContent = 'slut'
-
-                          // Store reference to state setters in the element
-                          slutSpan._setSlutEasterEggTimestamp = setSlutEasterEggTimestamp
-                          slutSpan._setShowSlutEasterEgg = setShowSlutEasterEgg
-
-                          // Attach click handler directly to the span
-                          slutSpan.addEventListener('click', function(e) {
-                            e.stopPropagation() // Prevent event bubbling
-                            this._setSlutEasterEggTimestamp(new Date().toISOString())
-                            this._setShowSlutEasterEgg(true)
-                          })
-
-                          // Add the span to the element
-                          slutTextElement.appendChild(slutSpan)
-
-                          // Show the slut emoji at the same time as the text
-                          handleWordHover('slut')
+                          slutTextElement.innerHTML = `     (${item.count.toLocaleString()})`
                         }
-                      }, 2000) // 2 seconds for both text and emojis
-                      setSlutHoverTimeout(timeout)
-                    } else if (specialMappings[item.content] === 'gif') {
-                      handleWordHover(item.content)
-                    } else if (emojiMappings[item.content]) {
-                      handleWordHover(item.content)
-                    }
-                  }}
-                  onMouseLeave={() => {
-                    if (item.content === 'slut') {
-                      // Clear the timeout if mouse leaves before 2 seconds
-                      if (slutHoverTimeout) {
-                        clearTimeout(slutHoverTimeout)
-                        setSlutHoverTimeout(null)
+                        // Also clear any floating emojis
+                        setFloatingEmojis([])
+                      } else if (specialMappings[item.content] === 'gif' || emojiMappings[item.content]) {
+                        handleWordLeave()
                       }
-                      // Reset the DOM element back to original state
-                      const slutTextElement = document.getElementById(`slut-text-${index}`)
-                      if (slutTextElement) {
-                        slutTextElement.innerHTML = `     (${item.count.toLocaleString()})`
-                      }
-                      // Also clear any floating emojis
-                      setFloatingEmojis([])
-                    } else if (specialMappings[item.content] === 'gif' || emojiMappings[item.content]) {
-                      handleWordLeave()
-                    }
+                    }}
+                  >
+                    {item.content === 'slut' ? (
+                      <span id={`slut-text-${index}`}>     ({item.count.toLocaleString()})</span>
+                    ) : (
+                      `${item.content} (${item.count.toLocaleString()})`
+                    )}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Slut Easter Egg Modal */}
+          {showSlutEasterEgg && (
+            <div
+              id="slut-easter-egg-modal-backdrop"
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'rgba(0, 0, 0, 0.8)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 10000
+              }}
+            >
+              <div style={{
+                background: 'var(--guild-bg-card)',
+                border: '3px solid var(--guild-orange)',
+                borderRadius: '12px',
+                padding: '2rem',
+                maxWidth: '500px',
+                width: '90%',
+                textAlign: 'center',
+                position: 'relative'
+              }}>
+                <button
+                  onClick={closeSlutEasterEgg}
+                  style={{
+                    position: 'absolute',
+                    top: '10px',
+                    right: '15px',
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--guild-text-dim)',
+                    fontSize: '1.5rem',
+                    cursor: 'pointer',
+                    padding: '5px'
                   }}
                 >
-                  {item.content === 'slut' ? (
-                    <span id={`slut-text-${index}`}>     ({item.count.toLocaleString()})</span>
-                  ) : (
-                    `${item.content} (${item.count.toLocaleString()})`
-                  )}
-                </span>
-              ))}
+                  ×
+                </button>
+
+                <h3 style={{
+                  color: 'var(--guild-orange)',
+                  marginBottom: '1rem',
+                  fontSize: '1.3rem'
+                }}>
+                  🎉 Hidden Easter Egg Found! 🎉
+                </h3>
+
+                <p style={{
+                  color: 'var(--guild-text)',
+                  marginBottom: '1.5rem',
+                  lineHeight: '1.6'
+                }}>
+                  Oh my! You found one of the hidden easter eggs! I bet you click any spoiler text without hesitation on discord, <strong>don't you?</strong> Take a screenshot of this and post it in the discord to claim your prize!
+                </p>
+
+                <div style={{
+                  marginBottom: '1rem',
+                  display: 'flex',
+                  justifyContent: 'center'
+                }}>
+                  <img
+                    src={`${import.meta.env.BASE_URL}assets/hehehe-why-yes.gif`}
+                    alt="Hehehe Why Yes"
+                    style={{
+                      maxWidth: '200px',
+                      maxHeight: '200px',
+                      borderRadius: '8px',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                    }}
+                  />
+                </div>
+
+                <div style={{
+                  color: 'var(--ffxiv-red)',
+                  fontSize: '0.9rem',
+                  fontWeight: 'bold',
+                  fontFamily: 'monospace',
+                  background: 'rgba(220, 38, 38, 0.1)',
+                  padding: '0.5rem',
+                  borderRadius: '4px',
+                  border: '1px solid var(--ffxiv-red)'
+                }}>
+                  Found at: {slutEasterEggTimestamp ? new Date(slutEasterEggTimestamp).toLocaleString() : 'Loading...'}
+                </div>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Slut Easter Egg Modal */}
-        {showSlutEasterEgg && (
-          <div
-            id="slut-easter-egg-modal-backdrop"
-            style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: 'rgba(0, 0, 0, 0.8)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              zIndex: 10000
-            }}
-          >
-            <div style={{
-              background: 'var(--guild-bg-card)',
-              border: '3px solid var(--guild-orange)',
-              borderRadius: '12px',
-              padding: '2rem',
-              maxWidth: '500px',
-              width: '90%',
-              textAlign: 'center',
-              position: 'relative'
-            }}>
-              <button
-                onClick={closeSlutEasterEgg}
-                style={{
-                  position: 'absolute',
-                  top: '10px',
-                  right: '15px',
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--guild-text-dim)',
-                  fontSize: '1.5rem',
-                  cursor: 'pointer',
-                  padding: '5px'
-                }}
-              >
-                ×
-              </button>
-
-              <h3 style={{
-                color: 'var(--guild-orange)',
-                marginBottom: '1rem',
-                fontSize: '1.3rem'
-              }}>
-                🎉 Hidden Easter Egg Found! 🎉
-              </h3>
-
-              <p style={{
-                color: 'var(--guild-text)',
-                marginBottom: '1.5rem',
-                lineHeight: '1.6'
-              }}>
-                Oh my! You found one of the hidden easter eggs! I bet you click any spoiler text without hesitation on discord, <strong>don't you?</strong> Take a screenshot of this and post it in the discord to claim your prize!
-              </p>
-
-              <div style={{
-                marginBottom: '1rem',
-                display: 'flex',
-                justifyContent: 'center'
-              }}>
+          {/* Floating Emojis */}
+          {floatingEmojis.map((floatingEmoji) => (
+            <div
+              key={floatingEmoji.id}
+              style={{
+                position: 'fixed',
+                left: mousePosition.x + floatingEmoji.offsetX,
+                top: mousePosition.y + floatingEmoji.offsetY,
+                pointerEvents: 'none',
+                zIndex: 9999,
+                animation: floatingEmoji.isGif ? 'none' : 'float 2s ease-in-out infinite',
+                transform: `rotate(${floatingEmoji.rotation}deg)`
+              }}
+            >
+              {floatingEmoji.isGif ? (
                 <img
-                  src={`${import.meta.env.BASE_URL}assets/hehehe-why-yes.gif`}
-                  alt="Hehehe Why Yes"
+                  src={`${import.meta.env.BASE_URL}assets/${floatingEmoji.emoji}`}
+                  alt="Perfect Alexander"
                   style={{
-                    maxWidth: '200px',
-                    maxHeight: '200px',
+                    width: '100px',
+                    height: 'auto',
+                    objectFit: 'contain',
                     borderRadius: '8px',
                     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
                   }}
                 />
-              </div>
-
-              <div style={{
-                color: 'var(--ffxiv-red)',
-                fontSize: '0.9rem',
-                fontWeight: 'bold',
-                fontFamily: 'monospace',
-                background: 'rgba(220, 38, 38, 0.1)',
-                padding: '0.5rem',
-                borderRadius: '4px',
-                border: '1px solid var(--ffxiv-red)'
-              }}>
-                Found at: {slutEasterEggTimestamp ? new Date(slutEasterEggTimestamp).toLocaleString() : 'Loading...'}
-              </div>
+              ) : (
+                renderEmoji(floatingEmoji.emoji, '2rem')
+              )}
             </div>
-          </div>
-        )}
-
-        {/* Floating Emojis */}
-        {floatingEmojis.map((floatingEmoji) => (
-          <div
-            key={floatingEmoji.id}
-            style={{
-              position: 'fixed',
-              left: mousePosition.x + floatingEmoji.offsetX,
-              top: mousePosition.y + floatingEmoji.offsetY,
-              pointerEvents: 'none',
-              zIndex: 9999,
-              animation: floatingEmoji.isGif ? 'none' : 'float 2s ease-in-out infinite',
-              transform: `rotate(${floatingEmoji.rotation}deg)`
-            }}
-          >
-            {floatingEmoji.isGif ? (
-              <img
-                src={`${import.meta.env.BASE_URL}assets/${floatingEmoji.emoji}`}
-                alt="Perfect Alexander"
-                style={{
-                  width: '100px',
-                  height: 'auto',
-                  objectFit: 'contain',
-                  borderRadius: '8px',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
-                }}
-              />
-            ) : (
-              renderEmoji(floatingEmoji.emoji, '2rem')
-            )}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   )
