@@ -13,6 +13,40 @@ function SlideFFXIV({ stats }) {
   const [slutEasterEggTimestamp, setSlutEasterEggTimestamp] = useState(null)
   const [slutHoverTimeout, setSlutHoverTimeout] = useState(null)
   const [isSlutHovered, setIsSlutHovered] = useState(false)
+  const [floatingEmojis, setFloatingEmojis] = useState([])
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+  // Emoji mappings for floating effects
+  const emojiMappings = {
+    'chud': '🤯',
+    'mah wife': '💕',
+    'wolves den': '💨'
+  }
+
+  const handleMouseMove = (e) => {
+    setMousePosition({ x: e.clientX, y: e.clientY })
+  }
+
+  const handleWordHover = (content) => {
+    if (emojiMappings[content]) {
+      // Create multiple floating emojis around the mouse
+      const emojis = []
+      for (let i = 0; i < 5; i++) {
+        emojis.push({
+          id: `${content}-${i}`,
+          emoji: emojiMappings[content],
+          offsetX: (Math.random() - 0.5) * 100, // Random offset between -50 and 50
+          offsetY: (Math.random() - 0.5) * 100,
+          rotation: Math.random() * 360
+        })
+      }
+      setFloatingEmojis(emojis)
+    }
+  }
+
+  const handleWordLeave = () => {
+    setFloatingEmojis([])
+  }
 
   const handleSlutHover = () => {
     setIsSlutHovered(true)
@@ -39,9 +73,11 @@ function SlideFFXIV({ stats }) {
     setShowSlutEasterEgg(false)
   }
 
-  // Cleanup timeout on unmount
+  // Mouse move tracking and cleanup
   useEffect(() => {
+    document.addEventListener('mousemove', handleMouseMove)
     return () => {
+      document.removeEventListener('mousemove', handleMouseMove)
       if (slutHoverTimeout) {
         clearTimeout(slutHoverTimeout)
       }
@@ -238,8 +274,20 @@ function SlideFFXIV({ stats }) {
                     border: '1px solid rgba(249, 115, 22, 0.3)',
                     cursor: item.content === 'slut' ? 'pointer' : 'default'
                   }}
-                  onMouseEnter={item.content === 'slut' ? handleSlutHover : undefined}
-                  onMouseLeave={item.content === 'slut' ? handleSlutLeave : undefined}
+                  onMouseEnter={() => {
+                    if (item.content === 'slut') {
+                      handleSlutHover()
+                    } else if (emojiMappings[item.content]) {
+                      handleWordHover(item.content)
+                    }
+                  }}
+                  onMouseLeave={() => {
+                    if (item.content === 'slut') {
+                      handleSlutLeave()
+                    } else if (emojiMappings[item.content]) {
+                      handleWordLeave()
+                    }
+                  }}
                   onClick={item.content === 'slut' && isSlutHovered ? handleSlutClick : undefined}
                 >
                   {item.content === 'slut' ? (
@@ -316,7 +364,7 @@ function SlideFFXIV({ stats }) {
                 marginBottom: '1.5rem',
                 lineHeight: '1.6'
               }}>
-                Oh my! You found the hidden easter egg! Take a screenshot of this and post it in the discord to claim your prize!
+                Oh my! You found one of the hidden easter eggs! I bet you click any spoiler text without hesitation on discord, <strong>don't you?</strong> Take a screenshot of this and post it in the discord to claim your prize!
               </p>
 
               <div style={{
@@ -351,6 +399,25 @@ function SlideFFXIV({ stats }) {
             </div>
           </div>
         )}
+
+        {/* Floating Emojis */}
+        {floatingEmojis.map((floatingEmoji) => (
+          <div
+            key={floatingEmoji.id}
+            style={{
+              position: 'fixed',
+              left: mousePosition.x + floatingEmoji.offsetX,
+              top: mousePosition.y + floatingEmoji.offsetY,
+              pointerEvents: 'none',
+              zIndex: 9999,
+              fontSize: '2rem',
+              animation: 'float 2s ease-in-out infinite',
+              transform: `rotate(${floatingEmoji.rotation}deg)`
+            }}
+          >
+            {floatingEmoji.emoji}
+          </div>
+        ))}
       </div>
     </div>
   )
