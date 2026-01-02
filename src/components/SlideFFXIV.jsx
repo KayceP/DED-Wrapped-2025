@@ -17,9 +17,9 @@ function SlideFFXIV({ stats }) {
   const [floatingEmojis, setFloatingEmojis] = useState([])
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
-  // Render emoji function (same as in SlideEmoji)
+  // Render emoji function (Discord emojis and custom assets)
   const renderEmoji = (emojiKey, size = '2rem') => {
-    // Check if it's a custom emoji (format: name:id)
+    // Check if it's a Discord emoji (format: name:id)
     if (typeof emojiKey === 'string' && emojiKey.includes(':')) {
       const emojiData = emojis.messageCustomEmojis?.[emojiKey] || emojis.reactionCustomEmojis?.[emojiKey]
       if (emojiData) {
@@ -43,13 +43,33 @@ function SlideFFXIV({ stats }) {
         )
       }
     }
+    // Check if it's a custom asset (PNG/SVG file in assets folder)
+    else if (typeof emojiKey === 'string' && (emojiKey.endsWith('.png') || emojiKey.endsWith('.svg') || emojiKey.endsWith('.gif'))) {
+      const assetUrl = `${import.meta.env.BASE_URL}assets/${emojiKey}`
+      return (
+        <img
+          src={assetUrl}
+          alt={emojiKey.split('.')[0]}
+          style={{
+            width: size,
+            height: size,
+            objectFit: 'contain',
+            verticalAlign: 'middle'
+          }}
+          onError={(e) => {
+            // Fallback to text if image fails to load
+            e.target.style.display = 'none'
+          }}
+        />
+      )
+    }
     // Fallback for unknown emojis
     return <span>{emojiKey}</span>
   }
 
-  // Emoji mappings for floating effects (using Discord emoji keys)
+  // Emoji mappings for floating effects (Discord emojis and custom assets)
   const emojiMappings = {
-    'chud': 'stressed:1384623535951187988',
+    'chud': 'chud.png', // Custom user avatar
     'mah wife': 'heartheart:1248721347459158168',
     'wolves den': 'STINKY:1384614772355502130',
     'phys ranged': 'Cat_In_Agony:1384621392787538114',
@@ -57,7 +77,7 @@ function SlideFFXIV({ stats }) {
     'cute': 'Lovereaper:1248711531068264592',
     'crime': 'Thron:1293024631317332079',
     '67': 'stressed:1384623535951187988',
-    'slut': 'ohpregnant:1347291490350661683'
+    'slut': 'mpreg.svg' // Custom pregnant man emoji
   }
 
   // Special mappings for different behavior
@@ -113,12 +133,10 @@ function SlideFFXIV({ stats }) {
           setShowSlutEasterEgg(true)
         })
 
-        // Show the slut emoji after the text appears
-        setTimeout(() => {
-          handleWordHover('slut')
-        }, 500)
+        // Show the slut emoji at the same time as the text
+        handleWordHover('slut')
       }
-    }, 2000) // Increased to 2 seconds
+    }, 2000) // 2 seconds for both text and emojis
     setSlutHoverTimeout(timeout)
   }
 
