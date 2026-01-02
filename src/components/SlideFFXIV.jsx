@@ -13,7 +13,6 @@ function SlideFFXIV({ stats }) {
   const [showSlutEasterEgg, setShowSlutEasterEgg] = useState(false)
   const [slutEasterEggTimestamp, setSlutEasterEggTimestamp] = useState(null)
   const [slutHoverTimeout, setSlutHoverTimeout] = useState(null)
-  const [isSlutHovered, setIsSlutHovered] = useState(false)
   const [floatingEmojis, setFloatingEmojis] = useState([])
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
@@ -120,33 +119,6 @@ function SlideFFXIV({ stats }) {
     setFloatingEmojis([])
   }
 
-  const handleSlutHover = () => {
-    setIsSlutHovered(true)
-    const timeout = setTimeout(() => {
-      // Create the link element
-      const easterEggText = document.getElementById('easter-egg-text')
-      if (easterEggText) {
-        easterEggText.innerHTML = '<a href="#" id="easter-egg-link" style="color: var(--guild-orange); text-decoration: underline;">...of course not</a>'
-        document.getElementById('easter-egg-link').addEventListener('click', (e) => {
-          e.preventDefault()
-          setEasterEggTimestamp(new Date().toISOString())
-          setShowSlutEasterEgg(true)
-        })
-
-        // Show the slut emoji at the same time as the text
-        handleWordHover('slut')
-      }
-    }, 2000) // 2 seconds for both text and emojis
-    setSlutHoverTimeout(timeout)
-  }
-
-  const handleSlutLeave = () => {
-    setIsSlutHovered(false)
-    if (slutHoverTimeout) {
-      clearTimeout(slutHoverTimeout)
-      setSlutHoverTimeout(null)
-    }
-  }
 
   const handleSlutClick = () => {
     setSlutEasterEggTimestamp(new Date().toISOString())
@@ -361,7 +333,23 @@ function SlideFFXIV({ stats }) {
                   }}
                   onMouseEnter={() => {
                     if (item.content === 'slut') {
-                      handleSlutHover()
+                      // Start 2-second timeout for slut easter egg
+                      const timeout = setTimeout(() => {
+                        // Create the link element
+                        const easterEggText = document.getElementById('easter-egg-text')
+                        if (easterEggText) {
+                          easterEggText.innerHTML = '<a href="#" id="easter-egg-link" style="color: var(--guild-orange); text-decoration: underline;">...of course not</a>'
+                          document.getElementById('easter-egg-link').addEventListener('click', (e) => {
+                            e.preventDefault()
+                            setEasterEggTimestamp(new Date().toISOString())
+                            setShowSlutEasterEgg(true)
+                          })
+
+                          // Show the slut emoji at the same time as the text
+                          handleWordHover('slut')
+                        }
+                      }, 2000) // 2 seconds for both text and emojis
+                      setSlutHoverTimeout(timeout)
                     } else if (specialMappings[item.content] === 'gif') {
                       handleWordHover(item.content)
                     } else if (emojiMappings[item.content]) {
@@ -370,21 +358,25 @@ function SlideFFXIV({ stats }) {
                   }}
                   onMouseLeave={() => {
                     if (item.content === 'slut') {
-                      handleSlutLeave()
+                      // Clear the timeout if mouse leaves before 2 seconds
+                      if (slutHoverTimeout) {
+                        clearTimeout(slutHoverTimeout)
+                        setSlutHoverTimeout(null)
+                      }
                     } else if (specialMappings[item.content] === 'gif' || emojiMappings[item.content]) {
                       handleWordLeave()
                     }
                   }}
-                  onClick={item.content === 'slut' && isSlutHovered ? handleSlutClick : undefined}
+                  onClick={item.content === 'slut' ? (() => {
+                    // Only allow click if the link exists
+                    const link = document.getElementById('easter-egg-link')
+                    if (link) {
+                      link.click()
+                    }
+                  }) : undefined}
                 >
                   {item.content === 'slut' ? (
-                    isSlutHovered ? (
-                      <a href="#" style={{ color: 'var(--guild-orange)', textDecoration: 'underline' }}>
-                        slut ({item.count.toLocaleString()})
-                      </a>
-                    ) : (
-                      <span>     ({item.count.toLocaleString()})</span>
-                    )
+                    <span id={`slut-text-${index}`}>     ({item.count.toLocaleString()})</span>
                   ) : (
                     `${item.content} (${item.count.toLocaleString()})`
                   )}
