@@ -96,7 +96,7 @@ function SlideOutro({ stats }) {
       <div className="slide-content">
         <h2 className="slide-title">Thanks for an amazing 2025!</h2>
         <p className="slide-subtitle" style={{ fontSize: '1.8rem', marginTop: '2rem' }}>
-          Here's to another year of adventures in Eorzea
+          Here's to another year of adventures together in Eorzea and beyond
         </p>
 
         <div style={{ textAlign: 'center', marginTop: '3rem', marginBottom: '2rem' }}>

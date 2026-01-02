@@ -6,6 +6,7 @@ function SlideFFXIV({ stats }) {
   const topJobs = ffxiv.topJobs || []
   const topRaids = ffxiv.topRaids || []
   const topContent = ffxiv.topContent || []
+  const topDedContent = ffxiv.topDedContent || []
 
   // Map job names to icon filenames (data uses lowercase)
   const getJobIcon = (jobName) => {
@@ -140,7 +141,7 @@ function SlideFFXIV({ stats }) {
         {topContent.length > 0 && (
           <div style={{ marginTop: '3rem' }}>
             <h3 style={{ fontSize: '1.5rem', color: 'var(--ffxiv-gold)', marginBottom: '1rem' }}>
-              Content Mentions
+              Top 10 Content Mentions
             </h3>
             <div className="word-cloud">
               {topContent.map((item, index) => (
@@ -148,6 +149,29 @@ function SlideFFXIV({ stats }) {
                   key={item.content}
                   className="word-item"
                   style={{ animationDelay: `${index * 0.05}s` }}
+                >
+                  {item.content === 'phys' ? 'phys ranged' : item.content} ({item.count.toLocaleString()})
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {topDedContent.length > 0 && (
+          <div style={{ marginTop: '3rem' }}>
+            <h3 style={{ fontSize: '1.5rem', color: 'var(--guild-orange)', marginBottom: '1rem' }}>
+              DED Specific Content Mentions
+            </h3>
+            <div className="word-cloud">
+              {topDedContent.map((item, index) => (
+                <span
+                  key={item.content}
+                  className="word-item"
+                  style={{
+                    animationDelay: `${index * 0.05}s`,
+                    background: 'var(--guild-bg-card)',
+                    border: '1px solid rgba(249, 115, 22, 0.3)'
+                  }}
                 >
                   {item.content} ({item.count.toLocaleString()})
                 </span>

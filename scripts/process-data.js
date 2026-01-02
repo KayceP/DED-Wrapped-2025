@@ -32,6 +32,16 @@ const FFXIV_KEYWORDS = {
   jobs: ['warrior', 'paladin', 'dark knight', 'gunbreaker', 'white mage', 'scholar', 'astrologian', 'sage', 'monk', 'dragoon', 'ninja', 'samurai', 'reaper', 'bard', 'machinist', 'dancer', 'black mage', 'summoner', 'red mage', 'blue mage'],
   raids: ['savage', 'ultimate', 'extreme', 'unreal', 'alliance', 'trial', 'dungeon'],
   content: ['raid', 'clear', 'parse', 'log', 'static', 'pf', 'party finder', 'fc', 'free company', 'housing', 'glamour', 'glam', 'mount', 'minion', 'minions', 'phys', 'ranged', 'physical ranged', 'phys ranged'],
+  dedContent: {
+    'yo tea': ['yo tea', 'tea?', 'yo tea?', 'tea', 'yo-tea'],
+    'crime': ['crime', 'crimes'],
+    '67': ['67'],
+    'chud': ['chud', 'chuds'],
+    'cute': ['cute', 'cuuute', 'cuuuuute', 'cuuuuuute', 'cuuuuuuute'], // Val saying cute variations
+    'mah wife': ['mah wife', 'maah wiife', 'maaah wiiife', 'maah wife', 'mah wiife'],
+    'sister wives': ['sister wives', 'sister wife'],
+    'wolves den': ['wolves den', 'wolves\' den', 'wolfs den']
+  }
 }
 
 // Enhanced word extraction using Chat Analytics tokenization
@@ -115,6 +125,7 @@ function aggregateStats() {
       jobMentions: {},
       raidMentions: {},
       contentMentions: {},
+      dedContentMentions: {},
     },
     topMessages: [],
   dateRange: {
@@ -457,6 +468,15 @@ function aggregateStats() {
             stats.ffxiv.contentMentions[content] = (stats.ffxiv.contentMentions[content] || 0) + 1
           }
         })
+
+        // DED-specific content mentions
+        Object.entries(FFXIV_KEYWORDS.dedContent).forEach(([category, keywords]) => {
+          keywords.forEach(keyword => {
+            if (contentLower.includes(keyword.toLowerCase())) {
+              stats.ffxiv.dedContentMentions[category] = (stats.ffxiv.dedContentMentions[category] || 0) + 1
+            }
+          })
+        })
       }
     }
 
@@ -521,6 +541,11 @@ function aggregateStats() {
     .map(([raid, count]) => ({ raid, count }))
 
   const topContent = Object.entries(stats.ffxiv.contentMentions)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([content, count]) => ({ content, count }))
+
+  const topDedContent = Object.entries(stats.ffxiv.dedContentMentions)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 10)
     .map(([content, count]) => ({ content, count }))
@@ -694,7 +719,9 @@ function aggregateStats() {
       topJobs,
       topRaids,
       topContent,
+      topDedContent,
       contentMentions: stats.ffxiv.contentMentions,
+      dedContentMentions: stats.ffxiv.dedContentMentions,
     },
   }
 
