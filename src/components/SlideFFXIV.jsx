@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import '../styles/Slide.css'
 import FloatingGhosts from './FloatingGhosts'
 
@@ -7,6 +8,70 @@ function SlideFFXIV({ stats }) {
   const topRaids = ffxiv.topRaids || []
   const topContent = ffxiv.topContent || []
   const topDedContent = ffxiv.topDedContent || []
+
+  const [showSlutEasterEgg, setShowSlutEasterEgg] = useState(false)
+  const [slutEasterEggTimestamp, setSlutEasterEggTimestamp] = useState(null)
+  const [slutHoverTimeout, setSlutHoverTimeout] = useState(null)
+  const [isSlutHovered, setIsSlutHovered] = useState(false)
+
+  const handleSlutHover = () => {
+    setIsSlutHovered(true)
+    const timeout = setTimeout(() => {
+      // This will trigger the link appearance
+    }, 1500)
+    setSlutHoverTimeout(timeout)
+  }
+
+  const handleSlutLeave = () => {
+    setIsSlutHovered(false)
+    if (slutHoverTimeout) {
+      clearTimeout(slutHoverTimeout)
+      setSlutHoverTimeout(null)
+    }
+  }
+
+  const handleSlutClick = () => {
+    setSlutEasterEggTimestamp(new Date().toISOString())
+    setShowSlutEasterEgg(true)
+  }
+
+  const closeSlutEasterEgg = () => {
+    setShowSlutEasterEgg(false)
+  }
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (slutHoverTimeout) {
+        clearTimeout(slutHoverTimeout)
+      }
+    }
+  }, [slutHoverTimeout])
+
+  // Handle escape key and outside clicks for modal
+  useEffect(() => {
+    if (!showSlutEasterEgg) return
+
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        closeSlutEasterEgg()
+      }
+    }
+
+    const handleClickOutside = (e) => {
+      if (e.target.id === 'slut-easter-egg-modal-backdrop') {
+        closeSlutEasterEgg()
+      }
+    }
+
+    document.addEventListener('keydown', handleEscape)
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape)
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [showSlutEasterEgg])
 
   // Map job names to icon filenames (data uses lowercase)
   const getJobIcon = (jobName) => {
@@ -170,12 +235,119 @@ function SlideFFXIV({ stats }) {
                   style={{
                     animationDelay: `${index * 0.05}s`,
                     background: 'var(--guild-bg-card)',
-                    border: '1px solid rgba(249, 115, 22, 0.3)'
+                    border: '1px solid rgba(249, 115, 22, 0.3)',
+                    cursor: item.content === 'slut' ? 'pointer' : 'default'
                   }}
+                  onMouseEnter={item.content === 'slut' ? handleSlutHover : undefined}
+                  onMouseLeave={item.content === 'slut' ? handleSlutLeave : undefined}
+                  onClick={item.content === 'slut' && isSlutHovered ? handleSlutClick : undefined}
                 >
-                  {item.content} ({item.count.toLocaleString()})
+                  {item.content === 'slut' ? (
+                    isSlutHovered ? (
+                      <a href="#" style={{ color: 'var(--guild-orange)', textDecoration: 'underline' }}>
+                        slut ({item.count.toLocaleString()})
+                      </a>
+                    ) : (
+                      <span>     ({item.count.toLocaleString()})</span>
+                    )
+                  ) : (
+                    `${item.content} (${item.count.toLocaleString()})`
+                  )}
                 </span>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* Slut Easter Egg Modal */}
+        {showSlutEasterEgg && (
+          <div
+            id="slut-easter-egg-modal-backdrop"
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'rgba(0, 0, 0, 0.8)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10000
+            }}
+          >
+            <div style={{
+              background: 'var(--guild-bg-card)',
+              border: '3px solid var(--guild-orange)',
+              borderRadius: '12px',
+              padding: '2rem',
+              maxWidth: '500px',
+              width: '90%',
+              textAlign: 'center',
+              position: 'relative'
+            }}>
+              <button
+                onClick={closeSlutEasterEgg}
+                style={{
+                  position: 'absolute',
+                  top: '10px',
+                  right: '15px',
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--guild-text-dim)',
+                  fontSize: '1.5rem',
+                  cursor: 'pointer',
+                  padding: '5px'
+                }}
+              >
+                ×
+              </button>
+
+              <h3 style={{
+                color: 'var(--guild-orange)',
+                marginBottom: '1rem',
+                fontSize: '1.3rem'
+              }}>
+                🎉 Hidden Easter Egg Found! 🎉
+              </h3>
+
+              <p style={{
+                color: 'var(--guild-text)',
+                marginBottom: '1.5rem',
+                lineHeight: '1.6'
+              }}>
+                Oh my! You found the hidden easter egg! Take a screenshot of this and post it in the discord to claim your prize!
+              </p>
+
+              <div style={{
+                marginBottom: '1rem',
+                display: 'flex',
+                justifyContent: 'center'
+              }}>
+                <img
+                  src={`${import.meta.env.BASE_URL}assets/hehehe-why-yes.gif`}
+                  alt="Hehehe Why Yes"
+                  style={{
+                    maxWidth: '200px',
+                    maxHeight: '200px',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                  }}
+                />
+              </div>
+
+              <div style={{
+                color: 'var(--ffxiv-red)',
+                fontSize: '0.9rem',
+                fontWeight: 'bold',
+                fontFamily: 'monospace',
+                background: 'rgba(220, 38, 38, 0.1)',
+                padding: '0.5rem',
+                borderRadius: '4px',
+                border: '1px solid var(--ffxiv-red)'
+              }}>
+                Found at: {slutEasterEggTimestamp ? new Date(slutEasterEggTimestamp).toLocaleString() : 'Loading...'}
+              </div>
             </div>
           </div>
         )}
