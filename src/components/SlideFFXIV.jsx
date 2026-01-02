@@ -536,7 +536,6 @@ function SlideFFXIV({ stats }) {
             </div>
           ))}
         </div>
-      </div>
     </div>
   )
 }
