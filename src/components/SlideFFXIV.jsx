@@ -381,6 +381,11 @@ function SlideFFXIV({ stats }) {
                         clearTimeout(slutHoverTimeout)
                         setSlutHoverTimeout(null)
                       }
+                      // Reset the DOM element back to original state
+                      const slutTextElement = document.getElementById(`slut-text-${index}`)
+                      if (slutTextElement) {
+                        slutTextElement.innerHTML = `     (${item.count.toLocaleString()})`
+                      }
                       // Also clear any floating emojis
                       setFloatingEmojis([])
                     } else if (specialMappings[item.content] === 'gif' || emojiMappings[item.content]) {
