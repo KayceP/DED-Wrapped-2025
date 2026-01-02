@@ -338,12 +338,7 @@ function SlideFFXIV({ stats }) {
                         // Find the slut text element and replace it
                         const slutTextElement = document.getElementById(`slut-text-${index}`)
                         if (slutTextElement) {
-                          slutTextElement.innerHTML = '<a href="#" id="slut-easter-egg-link" style="color: var(--guild-orange); text-decoration: underline;">slut</a>'
-                          document.getElementById('slut-easter-egg-link').addEventListener('click', (e) => {
-                            e.preventDefault()
-                            setEasterEggTimestamp(new Date().toISOString())
-                            setShowSlutEasterEgg(true)
-                          })
+                          slutTextElement.innerHTML = '<span id="slut-easter-egg-link" style="color: var(--guild-orange); text-decoration: underline; cursor: pointer;">slut</span>'
 
                           // Show the slut emoji at the same time as the text
                           handleWordHover('slut')
@@ -370,12 +365,9 @@ function SlideFFXIV({ stats }) {
                     }
                   }}
                   onClick={item.content === 'slut' ? (() => {
-                    // Check if the link exists and open the modal
-                    const link = document.getElementById('slut-easter-egg-link')
-                    if (link) {
-                      setEasterEggTimestamp(new Date().toISOString())
-                      setShowSlutEasterEgg(true)
-                    }
+                    // Open the modal directly
+                    setEasterEggTimestamp(new Date().toISOString())
+                    setShowSlutEasterEgg(true)
                   }) : undefined}
                 >
                   {item.content === 'slut' ? (
