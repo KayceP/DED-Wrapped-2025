@@ -135,7 +135,7 @@ function SlideEmoji({ stats }) {
                   const maxCount = topMessageEmojis[0][1]
                   const percentage = (count / maxCount) * 100
                   return (
-                    <div key={emoji} style={{
+                    <div key={`message-${emoji}-${index}`} style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.75rem'
@@ -215,7 +215,7 @@ function SlideEmoji({ stats }) {
                   const maxCount = topReactionEmojis[0][1]
                   const percentage = (count / maxCount) * 100
                   return (
-                    <div key={emoji} style={{
+                    <div key={`reaction-${emoji}-${index}`} style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.75rem'
@@ -295,7 +295,7 @@ function SlideEmoji({ stats }) {
                   const maxCount = topCombinedEmojis[0][1]
                   const percentage = (count / maxCount) * 100
                   return (
-                    <div key={emoji} style={{
+                    <div key={`combined-${emoji}-${index}`} style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.75rem'
@@ -380,7 +380,7 @@ function SlideEmoji({ stats }) {
                   const maxCount = topCustomEmojis[0][1]
                   const percentage = (count / maxCount) * 100
                   return (
-                    <div key={emoji} style={{
+                    <div key={`custom-${emoji}-${index}`} style={{
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
