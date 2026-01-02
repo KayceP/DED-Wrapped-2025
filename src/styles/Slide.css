@@ -735,10 +735,21 @@
     font-size: 0.5rem;
   }
 
-  /* Activity chart mobile fixes */
+  /* Activity chart and emoji chart mobile fixes */
   .chart-container {
     padding: 1rem;
     margin-top: 1.5rem;
+  }
+
+  /* Emoji grid mobile adjustments */
+  .slide-content > div[style*="display: grid"][style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* Custom emoji grid on mobile */
+  .slide-content > div[style*="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr))"] {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
   }
 
   .activity-chart {

@@ -323,6 +323,38 @@ function aggregateStats() {
           })
         }
 
+        // Additional detection for :name: format (shorthand typing)
+        // Cross-reference with known custom emojis from reactions
+        const shorthandEmojiRegex = /:(\w+):/g
+        const shorthandMatches = [...messageContent.matchAll(shorthandEmojiRegex)]
+        if (shorthandMatches.length > 0) {
+          shorthandMatches.forEach(match => {
+            const name = match[1]
+            // Skip if it's a known Unicode emoji name or too short
+            if (name.length <= 1) return
+
+            // Check if this name matches any known custom emoji from reactions
+            const matchingReactionEmoji = Object.keys(stats.emojis.reactionCustomEmojis).find(key => {
+              return stats.emojis.reactionCustomEmojis[key].name === name
+            })
+
+            if (matchingReactionEmoji) {
+              const reactionEmojiData = stats.emojis.reactionCustomEmojis[matchingReactionEmoji]
+              const emojiKey = `${name}:${reactionEmojiData.id}`
+
+              if (!stats.emojis.messageCustomEmojis[emojiKey]) {
+                stats.emojis.messageCustomEmojis[emojiKey] = {
+                  name,
+                  id: reactionEmojiData.id,
+                  animated: reactionEmojiData.animated,
+                  count: 0
+                }
+              }
+              stats.emojis.messageCustomEmojis[emojiKey].count++
+            }
+          })
+        }
+
         // Reply detection (simple heuristic: messages that start with @ or quote another user)
         if (messageContent.includes('<@') || messageContent.startsWith('>') ||
             messageContent.includes('said:') || /^\s*@/.test(messageContent)) {

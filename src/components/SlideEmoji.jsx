@@ -97,137 +97,254 @@ function SlideEmoji({ stats }) {
           </div>
         </div>
 
-        {/* Most Used Emojis in Messages */}
-        {topMessageEmojis.length > 0 && (
-          <div className="chart-container">
-            <h3 style={{ marginBottom: '1.5rem', color: 'var(--guild-orange)' }}>Most Used Emojis in Messages</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {topMessageEmojis.map(([emoji, count], index) => (
-                <div key={emoji} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '0.75rem',
-                  background: 'var(--guild-bg-card)',
-                  borderRadius: '8px',
-                  border: '1px solid rgba(75, 85, 99, 0.3)'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <div style={{
-                      width: '2rem',
-                      height: '2rem',
+        {/* Emoji Rankings Grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+          gap: '2rem',
+          marginTop: '2rem'
+        }}>
+          {/* Most Used Emojis in Messages */}
+          {topMessageEmojis.length > 0 && (
+            <div style={{
+              background: 'var(--guild-bg-card)',
+              borderRadius: '12px',
+              padding: '1.5rem',
+              border: '2px solid rgba(75, 85, 99, 0.3)'
+            }}>
+              <h3 style={{
+                marginBottom: '1rem',
+                color: 'var(--guild-orange)',
+                fontSize: '1.1rem',
+                textAlign: 'center'
+              }}>
+                Messages
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                {topMessageEmojis.slice(0, 8).map(([emoji, count], index) => {
+                  const maxCount = topMessageEmojis[0][1]
+                  const percentage = (count / maxCount) * 100
+                  return (
+                    <div key={emoji} style={{
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'center',
-                      minWidth: '2rem'
+                      gap: '0.75rem'
                     }}>
-                      {renderEmoji(emoji, '1.5rem')}
+                      <div style={{
+                        width: '2rem',
+                        height: '2rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0
+                      }}>
+                        {renderEmoji(emoji, '1.2rem')}
+                      </div>
+                      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                        <div style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center'
+                        }}>
+                          <span style={{
+                            fontSize: '0.9rem',
+                            fontWeight: 'bold',
+                            color: 'var(--guild-text)'
+                          }}>
+                            #{index + 1}
+                          </span>
+                          <span style={{
+                            fontSize: '0.8rem',
+                            color: 'var(--ffxiv-text)',
+                            fontWeight: 'bold'
+                          }}>
+                            {count.toLocaleString()}
+                          </span>
+                        </div>
+                        <div style={{
+                          width: '100%',
+                          height: '6px',
+                          background: 'rgba(75, 85, 99, 0.2)',
+                          borderRadius: '3px',
+                          overflow: 'hidden'
+                        }}>
+                          <div style={{
+                            width: `${percentage}%`,
+                            height: '100%',
+                            background: 'linear-gradient(90deg, var(--guild-orange), var(--ffxiv-purple))',
+                            borderRadius: '3px',
+                            transition: 'width 0.5s ease'
+                          }} />
+                        </div>
+                      </div>
                     </div>
-                    <span style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--guild-text)' }}>
-                      #{index + 1}
-                    </span>
-                  </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--ffxiv-text)' }}>
-                      {count.toLocaleString()}
-                    </div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--guild-text-dim)' }}>
-                      uses
-                    </div>
-                  </div>
-                </div>
-              ))}
+                  )
+                })}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Most Used Emojis in Reactions */}
-        {topReactionEmojis.length > 0 && (
-          <div className="chart-container" style={{ marginTop: '2rem' }}>
-            <h3 style={{ marginBottom: '1.5rem', color: 'var(--guild-orange)' }}>Most Used Emojis in Reactions</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {topReactionEmojis.map(([emoji, count], index) => (
-                <div key={emoji} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '0.75rem',
-                  background: 'var(--guild-bg-card)',
-                  borderRadius: '8px',
-                  border: '1px solid rgba(75, 85, 99, 0.3)'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <div style={{
-                      width: '2rem',
-                      height: '2rem',
+          {/* Most Used Emojis in Reactions */}
+          {topReactionEmojis.length > 0 && (
+            <div style={{
+              background: 'var(--guild-bg-card)',
+              borderRadius: '12px',
+              padding: '1.5rem',
+              border: '2px solid rgba(75, 85, 99, 0.3)'
+            }}>
+              <h3 style={{
+                marginBottom: '1rem',
+                color: 'var(--guild-orange)',
+                fontSize: '1.1rem',
+                textAlign: 'center'
+              }}>
+                Reactions
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                {topReactionEmojis.slice(0, 8).map(([emoji, count], index) => {
+                  const maxCount = topReactionEmojis[0][1]
+                  const percentage = (count / maxCount) * 100
+                  return (
+                    <div key={emoji} style={{
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'center',
-                      minWidth: '2rem'
+                      gap: '0.75rem'
                     }}>
-                      {renderEmoji(emoji, '1.5rem')}
+                      <div style={{
+                        width: '2rem',
+                        height: '2rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0
+                      }}>
+                        {renderEmoji(emoji, '1.2rem')}
+                      </div>
+                      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                        <div style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center'
+                        }}>
+                          <span style={{
+                            fontSize: '0.9rem',
+                            fontWeight: 'bold',
+                            color: 'var(--guild-text)'
+                          }}>
+                            #{index + 1}
+                          </span>
+                          <span style={{
+                            fontSize: '0.8rem',
+                            color: 'var(--ffxiv-text)',
+                            fontWeight: 'bold'
+                          }}>
+                            {count.toLocaleString()}
+                          </span>
+                        </div>
+                        <div style={{
+                          width: '100%',
+                          height: '6px',
+                          background: 'rgba(75, 85, 99, 0.2)',
+                          borderRadius: '3px',
+                          overflow: 'hidden'
+                        }}>
+                          <div style={{
+                            width: `${percentage}%`,
+                            height: '100%',
+                            background: 'linear-gradient(90deg, var(--ffxiv-purple), var(--guild-red))',
+                            borderRadius: '3px',
+                            transition: 'width 0.5s ease'
+                          }} />
+                        </div>
+                      </div>
                     </div>
-                    <span style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--guild-text)' }}>
-                      #{index + 1}
-                    </span>
-                  </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--ffxiv-text)' }}>
-                      {count.toLocaleString()}
-                    </div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--guild-text-dim)' }}>
-                      reactions
-                    </div>
-                  </div>
-                </div>
-              ))}
+                  )
+                })}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Custom Emojis */}
-        {topCustomEmojis.length > 0 && (
-          <div className="chart-container" style={{ marginTop: '2rem' }}>
-            <h3 style={{ marginBottom: '1.5rem', color: 'var(--guild-orange)' }}>Popular Custom Emojis</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {topCustomEmojis.map(([emoji, count], index) => (
-                <div key={emoji} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '0.75rem',
-                  background: 'var(--guild-bg-card)',
-                  borderRadius: '8px',
-                  border: '1px solid rgba(75, 85, 99, 0.3)'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <div style={{
-                      width: '2rem',
-                      height: '2rem',
+          {/* Popular Custom Emojis */}
+          {topCustomEmojis.length > 0 && (
+            <div style={{
+              background: 'var(--guild-bg-card)',
+              borderRadius: '12px',
+              padding: '1.5rem',
+              border: '2px solid rgba(75, 85, 99, 0.3)',
+              gridColumn: '1 / -1' // Span full width
+            }}>
+              <h3 style={{
+                marginBottom: '1rem',
+                color: 'var(--guild-orange)',
+                fontSize: '1.1rem',
+                textAlign: 'center'
+              }}>
+                Popular Custom Emojis
+              </h3>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                gap: '1rem'
+              }}>
+                {topCustomEmojis.slice(0, 12).map(([emoji, count], index) => {
+                  const maxCount = topCustomEmojis[0][1]
+                  const percentage = (count / maxCount) * 100
+                  return (
+                    <div key={emoji} style={{
                       display: 'flex',
+                      flexDirection: 'column',
                       alignItems: 'center',
-                      justifyContent: 'center',
-                      minWidth: '2rem'
+                      gap: '0.5rem',
+                      padding: '0.75rem',
+                      background: 'rgba(0, 0, 0, 0.2)',
+                      borderRadius: '8px'
                     }}>
-                      {renderEmoji(emoji, '1.5rem')}
+                      <div style={{
+                        width: '2.5rem',
+                        height: '2.5rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}>
+                        {renderEmoji(emoji, '1.5rem')}
+                      </div>
+                      <div style={{
+                        fontSize: '0.7rem',
+                        fontWeight: 'bold',
+                        color: 'var(--guild-text)',
+                        textAlign: 'center'
+                      }}>
+                        #{index + 1}
+                      </div>
+                      <div style={{
+                        width: '100%',
+                        height: '4px',
+                        background: 'rgba(75, 85, 99, 0.2)',
+                        borderRadius: '2px',
+                        overflow: 'hidden'
+                      }}>
+                        <div style={{
+                          width: `${percentage}%`,
+                          height: '100%',
+                          background: 'var(--guild-orange)',
+                          borderRadius: '2px',
+                          transition: 'width 0.5s ease'
+                        }} />
+                      </div>
+                      <div style={{
+                        fontSize: '0.7rem',
+                        color: 'var(--ffxiv-text)',
+                        fontWeight: 'bold'
+                      }}>
+                        {count.toLocaleString()}
+                      </div>
                     </div>
-                    <span style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--guild-text)' }}>
-                      #{index + 1}
-                    </span>
-                  </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--ffxiv-text)' }}>
-                      {count.toLocaleString()}
-                    </div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--guild-text-dim)' }}>
-                      uses
-                    </div>
-                  </div>
-                </div>
-              ))}
+                  )
+                })}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   )
