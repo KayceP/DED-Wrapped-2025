@@ -338,8 +338,8 @@ function SlideFFXIV({ stats }) {
                         // Find the slut text element and replace it
                         const slutTextElement = document.getElementById(`slut-text-${index}`)
                         if (slutTextElement) {
-                          slutTextElement.innerHTML = '<a href="#" id="easter-egg-link" style="color: var(--guild-orange); text-decoration: underline;">...of course not</a>'
-                          document.getElementById('easter-egg-link').addEventListener('click', (e) => {
+                          slutTextElement.innerHTML = '<a href="#" id="slut-easter-egg-link" style="color: var(--guild-orange); text-decoration: underline;">slut</a>'
+                          document.getElementById('slut-easter-egg-link').addEventListener('click', (e) => {
                             e.preventDefault()
                             setEasterEggTimestamp(new Date().toISOString())
                             setShowSlutEasterEgg(true)
@@ -369,7 +369,7 @@ function SlideFFXIV({ stats }) {
                   }}
                   onClick={item.content === 'slut' ? (() => {
                     // Only allow click if the link exists
-                    const link = document.getElementById('easter-egg-link')
+                    const link = document.getElementById('slut-easter-egg-link')
                     if (link) {
                       link.click()
                     }
