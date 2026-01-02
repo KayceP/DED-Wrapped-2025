@@ -747,11 +747,6 @@
     gap: 1rem !important;
   }
 
-  /* Reduce emoji grid min width on smaller screens */
-  .slide-content > div[style*="minmax(300px"] {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
-  }
-
   /* Custom emoji grid on mobile */
   .slide-content > div[style*="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr))"] {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;

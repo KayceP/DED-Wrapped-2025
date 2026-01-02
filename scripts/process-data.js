@@ -31,7 +31,7 @@ const BLACKLISTED_USERS = [
 const FFXIV_KEYWORDS = {
   jobs: ['warrior', 'paladin', 'dark knight', 'gunbreaker', 'white mage', 'scholar', 'astrologian', 'sage', 'monk', 'dragoon', 'ninja', 'samurai', 'reaper', 'bard', 'machinist', 'dancer', 'black mage', 'summoner', 'red mage', 'blue mage'],
   raids: ['savage', 'ultimate', 'extreme', 'unreal', 'alliance', 'trial', 'dungeon'],
-  content: ['raid', 'clear', 'parse', 'log', 'static', 'pf', 'party finder', 'fc', 'free company', 'housing', 'glamour', 'glam', 'mount', 'minion'],
+  content: ['raid', 'clear', 'parse', 'log', 'static', 'pf', 'party finder', 'fc', 'free company', 'housing', 'glamour', 'glam', 'mount', 'minion', 'minions', 'phys ranged'],
 }
 
 // Enhanced word extraction using Chat Analytics tokenization
