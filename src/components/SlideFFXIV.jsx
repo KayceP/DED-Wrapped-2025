@@ -52,7 +52,17 @@ function SlideFFXIV({ stats }) {
     'chud': 'stressed:1384623535951187988',
     'mah wife': 'heartheart:1248721347459158168',
     'wolves den': 'STINKY:1384614772355502130',
-    'phys ranged': 'Cat_In_Agony:1384621392787538114'
+    'phys ranged': 'Cat_In_Agony:1384621392787538114',
+    'sister wives': 'SkeletonHeartHands:1384620342911434902',
+    'cute': 'Lovereaper:1248711531068264592',
+    'crime': 'Thron:1293024631317332079',
+    '67': 'stressed:1384623535951187988',
+    'slut': 'ohpregnant:1347291490350661683'
+  }
+
+  // Special mappings for different behavior
+  const specialMappings = {
+    'yo tea': 'gif' // Shows GIF instead of emojis
   }
 
   const handleMouseMove = (e) => {
@@ -60,7 +70,17 @@ function SlideFFXIV({ stats }) {
   }
 
   const handleWordHover = (content) => {
-    if (emojiMappings[content]) {
+    if (specialMappings[content] === 'gif') {
+      // Special case for yo tea - show a single GIF
+      setFloatingEmojis([{
+        id: `${content}-gif`,
+        emoji: 'ffxiv-perfect-alexander.gif',
+        offsetX: 0,
+        offsetY: -50,
+        rotation: 0,
+        isGif: true
+      }])
+    } else if (emojiMappings[content]) {
       // Create multiple floating emojis around the mouse
       const emojis = []
       for (let i = 0; i < 5; i++) {
@@ -83,8 +103,22 @@ function SlideFFXIV({ stats }) {
   const handleSlutHover = () => {
     setIsSlutHovered(true)
     const timeout = setTimeout(() => {
-      // This will trigger the link appearance
-    }, 1500)
+      // Create the link element
+      const easterEggText = document.getElementById('easter-egg-text')
+      if (easterEggText) {
+        easterEggText.innerHTML = '<a href="#" id="easter-egg-link" style="color: var(--guild-orange); text-decoration: underline;">...of course not</a>'
+        document.getElementById('easter-egg-link').addEventListener('click', (e) => {
+          e.preventDefault()
+          setEasterEggTimestamp(new Date().toISOString())
+          setShowSlutEasterEgg(true)
+        })
+
+        // Show the slut emoji after the text appears
+        setTimeout(() => {
+          handleWordHover('slut')
+        }, 500)
+      }
+    }, 2000) // Increased to 2 seconds
     setSlutHoverTimeout(timeout)
   }
 
@@ -310,6 +344,8 @@ function SlideFFXIV({ stats }) {
                   onMouseEnter={() => {
                     if (item.content === 'slut') {
                       handleSlutHover()
+                    } else if (specialMappings[item.content] === 'gif') {
+                      handleWordHover(item.content)
                     } else if (emojiMappings[item.content]) {
                       handleWordHover(item.content)
                     }
@@ -317,7 +353,7 @@ function SlideFFXIV({ stats }) {
                   onMouseLeave={() => {
                     if (item.content === 'slut') {
                       handleSlutLeave()
-                    } else if (emojiMappings[item.content]) {
+                    } else if (specialMappings[item.content] === 'gif' || emojiMappings[item.content]) {
                       handleWordLeave()
                     }
                   }}
@@ -443,11 +479,25 @@ function SlideFFXIV({ stats }) {
               top: mousePosition.y + floatingEmoji.offsetY,
               pointerEvents: 'none',
               zIndex: 9999,
-              animation: 'float 2s ease-in-out infinite',
+              animation: floatingEmoji.isGif ? 'none' : 'float 2s ease-in-out infinite',
               transform: `rotate(${floatingEmoji.rotation}deg)`
             }}
           >
-            {renderEmoji(floatingEmoji.emoji, '2rem')}
+            {floatingEmoji.isGif ? (
+              <img
+                src={`${import.meta.env.BASE_URL}assets/${floatingEmoji.emoji}`}
+                alt="Perfect Alexander"
+                style={{
+                  width: '100px',
+                  height: 'auto',
+                  objectFit: 'contain',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                }}
+              />
+            ) : (
+              renderEmoji(floatingEmoji.emoji, '2rem')
+            )}
           </div>
         ))}
       </div>
