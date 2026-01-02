@@ -129,6 +129,25 @@ Edit `scripts/process-data.js` to add new statistics or modify existing ones.
 - Slide styles: `src/styles/Slide.css`
 - App styles: `src/styles/App.css`
 
+## User Filtering
+
+### Blacklisted Users
+If you need to exclude certain users from all statistics (e.g., kicked users), add their Discord user IDs to the `BLACKLISTED_USERS` array in `scripts/process-data.js`:
+
+```javascript
+const BLACKLISTED_USERS = [
+  '123456789012345678',  // User ID to exclude
+  '987654321098765432'   // Another user ID
+]
+```
+
+Then run `npm run process-data` to regenerate stats without those users.
+
+**How to find a user's ID:**
+1. Enable Developer Mode in Discord (User Settings → App Settings → Advanced → Developer Mode)
+2. Right-click on the user and select "Copy User ID"
+3. Add the ID to the `BLACKLISTED_USERS` array
+
 ## Development Workflow
 
 This project maintains **separate workflows** for local development and production deployment to keep raw Discord data private while allowing easy updates.

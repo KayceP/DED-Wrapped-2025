@@ -14,6 +14,13 @@ const __dirname = path.dirname(__filename)
 const dataDir = 'C:\\Users\\Evelyn\\Documents\\DED'
 const outputPath = path.join(__dirname, '..', 'public', 'data', 'stats.json')
 
+// Users to exclude from all statistics (e.g., kicked users)
+const BLACKLISTED_USERS = [
+  // Add user IDs here, e.g.:
+  // '123456789012345678',
+  // '987654321098765432'
+]
+
 // FFXIV-related keywords for custom stats
 const FFXIV_KEYWORDS = {
   jobs: ['warrior', 'paladin', 'dark knight', 'gunbreaker', 'white mage', 'scholar', 'astrologian', 'sage', 'monk', 'dragoon', 'ninja', 'samurai', 'reaper', 'bard', 'machinist', 'dancer', 'black mage', 'summoner', 'red mage', 'blue mage'],
@@ -147,7 +154,13 @@ function aggregateStats() {
       // User stats
       const userId = message.author?.id
       const userName = message.author?.nickname || message.author?.name || 'Unknown'
-      
+
+      // Skip blacklisted users (kicked users, etc.)
+      const isBlacklisted = BLACKLISTED_USERS.includes(userId)
+      if (isBlacklisted) {
+        continue // Skip this message entirely
+      }
+
       if (userId && !isBot) {
         stats.uniqueUsers.add(userId)
         
@@ -286,7 +299,7 @@ function aggregateStats() {
       // Reactions
       if (message.reactions && message.reactions.length > 0) {
         const reactionCount = message.reactions.reduce((sum, r) => sum + (r.count || 0), 0)
-        if (userId && !isBot) {
+        if (userId && !isBot && !isBlacklisted) {
           stats.users[userId].reactionCount += reactionCount
         }
         
@@ -303,7 +316,7 @@ function aggregateStats() {
       // Attachments
       if (message.attachments && message.attachments.length > 0) {
         stats.attachments.total += message.attachments.length
-        if (userId && !isBot) {
+        if (userId && !isBot && !isBlacklisted) {
           stats.users[userId].attachmentCount += message.attachments.length
         }
         
