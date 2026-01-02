@@ -8,8 +8,8 @@ function SlideArt({ stats }) {
   // List of art files - this would ideally be dynamic, but for now we'll hardcode
   // based on the files we know exist
   const artData = [
-    // Arekin
-    { filename: 'Arekin_Chibi.png', artist: 'Arekin Chibi', type: 'image' },
+    // Geru
+    { filename: 'Geru_2.png', artist: 'Geru', type: 'image' },
 
     // Crowe
     { filename: 'Crowe_1.png', artist: 'Crowe', type: 'image' },
