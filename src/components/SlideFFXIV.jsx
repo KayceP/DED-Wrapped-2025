@@ -363,15 +363,18 @@ function SlideFFXIV({ stats }) {
                         clearTimeout(slutHoverTimeout)
                         setSlutHoverTimeout(null)
                       }
+                      // Also clear any floating emojis
+                      setFloatingEmojis([])
                     } else if (specialMappings[item.content] === 'gif' || emojiMappings[item.content]) {
                       handleWordLeave()
                     }
                   }}
                   onClick={item.content === 'slut' ? (() => {
-                    // Only allow click if the link exists
+                    // Check if the link exists and open the modal
                     const link = document.getElementById('slut-easter-egg-link')
                     if (link) {
-                      link.click()
+                      setEasterEggTimestamp(new Date().toISOString())
+                      setShowSlutEasterEgg(true)
                     }
                   }) : undefined}
                 >
