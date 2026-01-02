@@ -16,6 +16,9 @@ function SlideFFXIV({ stats }) {
   const [floatingEmojis, setFloatingEmojis] = useState([])
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
+  // Detect if device supports touch
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+
   // Render emoji function (Discord emojis and custom assets)
   const renderEmoji = (emojiKey, size = '2rem') => {
     // Check if it's a Discord emoji (format: name:id)
@@ -328,11 +331,11 @@ function SlideFFXIV({ stats }) {
                       animationDelay: `${index * 0.05}s`,
                       background: 'var(--guild-bg-card)',
                       border: '1px solid rgba(249, 115, 22, 0.3)',
-                      cursor: item.content === 'slut' ? 'pointer' : 'default'
+                      cursor: item.content === 'slut' ? (isTouchDevice ? 'default' : 'pointer') : 'default'
                     }}
                     onMouseEnter={() => {
-                      if (item.content === 'slut') {
-                        // Start 2-second timeout for slut easter egg
+                      if (item.content === 'slut' && !isTouchDevice) {
+                        // Desktop: Start 2-second hover timeout for slut easter egg
                         const timeout = setTimeout(() => {
                           // Find the slut text element and replace it
                           const slutTextElement = document.getElementById(`slut-text-${index}`)
@@ -374,8 +377,8 @@ function SlideFFXIV({ stats }) {
                       }
                     }}
                     onMouseLeave={() => {
-                      if (item.content === 'slut') {
-                        // Clear the timeout if mouse leaves before 2 seconds
+                      if (item.content === 'slut' && !isTouchDevice) {
+                        // Desktop: Clear the timeout if mouse leaves before 2 seconds
                         if (slutHoverTimeout) {
                           clearTimeout(slutHoverTimeout)
                           setSlutHoverTimeout(null)
@@ -389,6 +392,61 @@ function SlideFFXIV({ stats }) {
                         setFloatingEmojis([])
                       } else if (specialMappings[item.content] === 'gif' || emojiMappings[item.content]) {
                         handleWordLeave()
+                      }
+                    }}
+                    onTouchStart={() => {
+                      if (item.content === 'slut' && isTouchDevice) {
+                        // Mobile: Start 2-second touch timeout for slut easter egg
+                        const timeout = setTimeout(() => {
+                          // Find the slut text element and replace it
+                          const slutTextElement = document.getElementById(`slut-text-${index}`)
+                          if (slutTextElement) {
+                            // Clear existing content
+                            slutTextElement.innerHTML = ''
+
+                            // Create the clickable span
+                            const slutSpan = document.createElement('span')
+                            slutSpan.id = 'slut-easter-egg-link'
+                            slutSpan.style.color = 'var(--guild-orange)'
+                            slutSpan.style.textDecoration = 'underline'
+                            slutSpan.style.cursor = 'pointer'
+                            slutSpan.textContent = 'slut'
+
+                            // Store reference to state setters in the element
+                            slutSpan._setSlutEasterEggTimestamp = setSlutEasterEggTimestamp
+                            slutSpan._setShowSlutEasterEgg = setShowSlutEasterEgg
+
+                            // Attach click handler directly to the span
+                            slutSpan.addEventListener('click', function(e) {
+                              e.stopPropagation() // Prevent event bubbling
+                              this._setSlutEasterEggTimestamp(new Date().toISOString())
+                              this._setShowSlutEasterEgg(true)
+                            })
+
+                            // Add the span to the element
+                            slutTextElement.appendChild(slutSpan)
+
+                            // Show the slut emoji at the same time as the text
+                            handleWordHover('slut')
+                          }
+                        }, 2000) // 2 seconds for both text and emojis
+                        setSlutHoverTimeout(timeout)
+                      }
+                    }}
+                    onTouchEnd={() => {
+                      if (item.content === 'slut' && isTouchDevice) {
+                        // Mobile: Clear the timeout if touch ends before 2 seconds
+                        if (slutHoverTimeout) {
+                          clearTimeout(slutHoverTimeout)
+                          setSlutHoverTimeout(null)
+                        }
+                        // Reset the DOM element back to original state
+                        const slutTextElement = document.getElementById(`slut-text-${index}`)
+                        if (slutTextElement) {
+                          slutTextElement.innerHTML = `     (${item.count.toLocaleString()})`
+                        }
+                        // Also clear any floating emojis
+                        setFloatingEmojis([])
                       }
                     }}
                   >
