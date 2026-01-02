@@ -335,10 +335,10 @@ function SlideFFXIV({ stats }) {
                     if (item.content === 'slut') {
                       // Start 2-second timeout for slut easter egg
                       const timeout = setTimeout(() => {
-                        // Create the link element
-                        const easterEggText = document.getElementById('easter-egg-text')
-                        if (easterEggText) {
-                          easterEggText.innerHTML = '<a href="#" id="easter-egg-link" style="color: var(--guild-orange); text-decoration: underline;">...of course not</a>'
+                        // Find the slut text element and replace it
+                        const slutTextElement = document.getElementById(`slut-text-${index}`)
+                        if (slutTextElement) {
+                          slutTextElement.innerHTML = '<a href="#" id="easter-egg-link" style="color: var(--guild-orange); text-decoration: underline;">...of course not</a>'
                           document.getElementById('easter-egg-link').addEventListener('click', (e) => {
                             e.preventDefault()
                             setEasterEggTimestamp(new Date().toISOString())
