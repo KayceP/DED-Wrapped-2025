@@ -122,6 +122,24 @@ function SlideFFXIV({ stats }) {
     setFloatingEmojis([])
   }
 
+  const handleJobHover = (jobName) => {
+    if (jobName.toLowerCase() === 'blue mage') {
+      setFloatingEmojis([{
+        id: 'blue-mage-hover',
+        emoji: 'blu_hover.png',
+        offsetX: 20,
+        offsetY: -30,
+        rotation: 0,
+        isGif: false,
+        width: '200px'
+      }])
+    }
+  }
+
+  const handleJobLeave = () => {
+    setFloatingEmojis([])
+  }
+
 
   const handleSlutClick = () => {
     setSlutEasterEggTimestamp(new Date().toISOString())
@@ -220,7 +238,13 @@ function SlideFFXIV({ stats }) {
               {topJobs.map((item, index) => {
                 const iconFile = getJobIcon(item.job)
                 return (
-                  <div key={item.job} className="stat-card ffxiv-job-card" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <div
+                    key={item.job}
+                    className="stat-card ffxiv-job-card"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                    onMouseEnter={() => item.job.toLowerCase() === 'blue mage' && handleJobHover(item.job)}
+                    onMouseLeave={() => item.job.toLowerCase() === 'blue mage' && handleJobLeave()}
+                  >
                     {iconFile && (
                       <div style={{
                         width: '60px',
