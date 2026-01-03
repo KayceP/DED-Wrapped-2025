@@ -23,6 +23,9 @@ function App() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [stats, setStats] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [backButtonClicks, setBackButtonClicks] = useState(0)
+  const [showBackEasterEgg, setShowBackEasterEgg] = useState(false)
+  const [backEasterEggTimestamp, setBackEasterEggTimestamp] = useState(null)
 
   useEffect(() => {
     loadStats()
@@ -63,7 +66,17 @@ function App() {
   }
 
   const handlePrev = () => {
-    if (currentSlide > 0) {
+    // Easter egg: clicking back button 3 times on first slide
+    if (currentSlide === 0) {
+      const newClickCount = backButtonClicks + 1
+      setBackButtonClicks(newClickCount)
+
+      if (newClickCount === 3) {
+        setBackEasterEggTimestamp(new Date().toISOString())
+        setShowBackEasterEgg(true)
+        setBackButtonClicks(0) // Reset for next time
+      }
+    } else if (currentSlide > 0) {
       setCurrentSlide(currentSlide - 1)
     }
   }
@@ -112,6 +125,20 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyPress)
   }, [currentSlide, slides.length])
 
+  // Handle escape key for back easter egg modal
+  useEffect(() => {
+    if (!showBackEasterEgg) return
+
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        setShowBackEasterEgg(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
+  }, [showBackEasterEgg])
+
   if (loading) {
     return (
       <div className="loading-screen">
@@ -141,10 +168,9 @@ function App() {
     >
       <CurrentSlideComponent stats={stats} />
       <div className="slide-controls">
-        <button 
-          onClick={handlePrev} 
-          disabled={currentSlide === 0}
-          className="nav-button prev"
+        <button
+          onClick={handlePrev}
+          className={`nav-button prev ${currentSlide === 0 ? 'deactivated' : ''}`}
         >
           ←
         </button>
@@ -159,6 +185,109 @@ function App() {
           →
         </button>
       </div>
+
+      {/* Back Button Easter Egg Modal */}
+      {showBackEasterEgg && (
+        <div
+          id="back-easter-egg-modal-backdrop"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.9)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10000,
+            cursor: 'pointer'
+          }}
+          onClick={() => setShowBackEasterEgg(false)}
+        >
+          <div style={{
+            background: 'var(--guild-bg-card)',
+            border: '3px solid var(--guild-orange)',
+            borderRadius: '12px',
+            padding: '2rem',
+            maxWidth: '600px',
+            width: '90%',
+            textAlign: 'center',
+            position: 'relative',
+            cursor: 'default'
+          }}>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setShowBackEasterEgg(false)
+              }}
+              style={{
+                position: 'absolute',
+                top: '10px',
+                right: '15px',
+                background: 'none',
+                border: 'none',
+                color: 'var(--guild-text-dim)',
+                fontSize: '1.5rem',
+                cursor: 'pointer',
+                padding: '5px'
+              }}
+            >
+              ×
+            </button>
+
+            <h3 style={{
+              color: '#ff6b6b',
+              marginBottom: '1rem',
+              fontSize: '1.8rem'
+            }}>
+              🕹️ Old School Gamer Detected? 🕹️
+            </h3>
+
+            <p style={{
+              color: 'var(--guild-text)',
+              marginBottom: '1.5rem',
+              lineHeight: '1.6',
+              fontSize: '1.1rem'
+            }}>
+              Whoa there! Trying to go backwards in a slideshow? That's some serious old school gaming instinct right there! Did you know the original Metroid was the first game that rewarded you for going backwards at the start of it?
+
+              <br/><br/>
+              <strong>Congrats on finding one of our easter eggs!</strong> Take a screenshot and post it on discord to claim your prize!
+            </p>
+
+            <div style={{
+              marginBottom: '1rem',
+              display: 'flex',
+              justifyContent: 'center'
+            }}>
+              <img
+                src={`${import.meta.env.BASE_URL}assets/backwards.gif`}
+                alt="Going Backwards"
+                style={{
+                  maxWidth: '300px',
+                  maxHeight: '300px',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                }}
+              />
+            </div>
+
+            <div style={{
+              color: '#ff6b6b',
+              fontSize: '0.9rem',
+              fontWeight: 'bold',
+              fontFamily: 'monospace',
+              background: 'rgba(255, 107, 107, 0.1)',
+              padding: '0.5rem',
+              borderRadius: '4px',
+              border: '1px solid #ff6b6b'
+            }}>
+              Old School Gamer Achievement Unlocked at: {backEasterEggTimestamp ? new Date(backEasterEggTimestamp).toLocaleString() : 'Loading...'}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
