@@ -171,6 +171,15 @@ function SlideFFXIV({ stats }) {
         isGif: true,
         width: '200px'
       }])
+    } else if (raidName.toLowerCase() === 'savage') {
+      setFloatingEmojis([{
+        id: 'savage-hover',
+        emoji: 'khaiani-ffxiv.gif',
+        offsetX: 20,
+        offsetY: -30,
+        rotation: 0,
+        isGif: true
+      }])
     }
   }
 
@@ -330,8 +339,8 @@ function SlideFFXIV({ stats }) {
                     key={item.raid}
                     className="stat-card ffxiv-raid-card"
                     style={{ animationDelay: `${index * 0.1}s` }}
-                    onMouseEnter={() => item.raid.toLowerCase() === 'ultimate' && handleRaidHover(item.raid)}
-                    onMouseLeave={() => item.raid.toLowerCase() === 'ultimate' && handleRaidLeave()}
+                    onMouseEnter={() => (item.raid.toLowerCase() === 'ultimate' || item.raid.toLowerCase() === 'savage') && handleRaidHover(item.raid)}
+                    onMouseLeave={() => (item.raid.toLowerCase() === 'ultimate' || item.raid.toLowerCase() === 'savage') && handleRaidLeave()}
                   >
                     {raidIconFile && (
                       <div style={{
