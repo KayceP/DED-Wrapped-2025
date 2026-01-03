@@ -28,7 +28,6 @@ function SlideIntro({ stats }) {
               maxWidth: '700px',
               height: 'auto',
               borderRadius: '16px',
-              border: '4px solid var(--guild-red)',
               boxShadow: '0 12px 40px rgba(220, 38, 38, 0.4)',
               marginBottom: '2rem',
               cursor: 'pointer',
