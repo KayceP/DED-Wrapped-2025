@@ -178,7 +178,8 @@ function SlideFFXIV({ stats }) {
         offsetX: 20,
         offsetY: -30,
         rotation: 0,
-        isGif: true
+        isGif: true,
+        width: '150px'
       }])
     }
   }
