@@ -115,6 +115,7 @@ function aggregateStats() {
       jobMentions: {},
       raidMentions: {},
       contentMentions: {},
+      dedContentMentions: {},
     },
     topMessages: [],
   dateRange: {
@@ -457,6 +458,42 @@ function aggregateStats() {
             stats.ffxiv.contentMentions[content] = (stats.ffxiv.contentMentions[content] || 0) + 1
           }
         })
+
+        // DED specific content mentions with variations
+        const dedKeywords = [
+          // Existing ones
+          'mah wife', 'ma wife', 'my wife',
+          'yo tea', 'yo t', 'yotea',
+          'chud',
+          'cute',
+          'crime',
+          'phys ranged', 'phys range', 'physical ranged',
+          'sister wives', 'sister wife',
+          'wolves den', 'wolf den',
+          '67',
+          'slut',
+          // New ones: wings and maps with variations
+          'wings', 'wing', 'wiiings', 'wiings', 'wingz',
+          'maps', 'map', 'maaps', 'maaps', 'mapz', 'mps'
+        ]
+
+        dedKeywords.forEach(keyword => {
+          if (contentLower.includes(keyword.toLowerCase())) {
+            // Normalize the keyword for counting (use the base form)
+            let normalizedKey = keyword
+            if (['ma wife', 'my wife'].includes(keyword)) normalizedKey = 'mah wife'
+            if (['yo t', 'yotea'].includes(keyword)) normalizedKey = 'yo tea'
+            if (['phys range', 'physical ranged'].includes(keyword)) normalizedKey = 'phys ranged'
+            if (['sister wife'].includes(keyword)) normalizedKey = 'sister wives'
+            if (['wolf den'].includes(keyword)) normalizedKey = 'wolves den'
+            // For wings variations
+            if (['wing', 'wiiings', 'wiings', 'wingz'].includes(keyword)) normalizedKey = 'wings'
+            // For maps variations
+            if (['map', 'maaps', 'maaps', 'mapz', 'mps'].includes(keyword)) normalizedKey = 'maps'
+
+            stats.ffxiv.dedContentMentions[normalizedKey] = (stats.ffxiv.dedContentMentions[normalizedKey] || 0) + 1
+          }
+        })
       }
     }
 
@@ -694,7 +731,12 @@ function aggregateStats() {
       topJobs,
       topRaids,
       topContent,
+      topDedContent: Object.entries(stats.ffxiv.dedContentMentions)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10)
+        .map(([content, count]) => ({ content, count })),
       contentMentions: stats.ffxiv.contentMentions,
+      dedContentMentions: stats.ffxiv.dedContentMentions,
     },
   }
 
