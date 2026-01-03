@@ -9,7 +9,7 @@ function SlideArt({ stats }) {
   // based on the files we know exist
   const artData = [
     // Geru
-    { filename: 'Geru_2.png', artist: 'Geru', type: 'image' },
+    { filename: 'Esme_11.png', artist: 'Esme', type: 'image' },
 
     // Crowe
     { filename: 'Crowe_1.png', artist: 'Crowe', type: 'image' },
