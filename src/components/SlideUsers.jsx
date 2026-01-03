@@ -32,6 +32,26 @@ function SlideUsers({ stats }) {
         rotation: 0,
         isGif: true
       }])
+    } else if (userIndex === 2) {
+      // #3 user - discord perms image
+      setFloatingEmojis([{
+        id: 'discord-perms-img',
+        emoji: 'discord_perms.png',
+        offsetX: 20,
+        offsetY: -30,
+        rotation: 0,
+        isGif: false
+      }])
+    } else if (userIndex === 3) {
+      // #4 user - asha image
+      setFloatingEmojis([{
+        id: 'asha-img',
+        emoji: 'asha.png',
+        offsetX: 20,
+        offsetY: -30,
+        rotation: 0,
+        isGif: false
+      }])
     }
   }
 
@@ -70,8 +90,8 @@ function SlideUsers({ stats }) {
               key={user.id}
               className="user-item"
               style={{ animationDelay: `${index * 0.1}s` }}
-              onMouseEnter={() => (index === 0 || index === 1) && handleHover(index)}
-              onMouseLeave={() => (index === 0 || index === 1) && handleLeave()}
+              onMouseEnter={() => (index === 0 || index === 1 || index === 2 || index === 3) && handleHover(index)}
+              onMouseLeave={() => (index === 0 || index === 1 || index === 2 || index === 3) && handleLeave()}
             >
               <div className="user-rank">#{index + 1}</div>
               {user.avatarUrl && (
