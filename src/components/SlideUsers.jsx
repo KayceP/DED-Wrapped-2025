@@ -112,9 +112,9 @@ function SlideUsers({ stats }) {
             {floatingEmoji.isGif ? (
               <img
                 src={`${import.meta.env.BASE_URL}assets/${floatingEmoji.emoji}`}
-                alt="Thorn Ro Zu"
+                alt={floatingEmoji.emoji === 'spray_fish.gif' ? 'Spray Fish' : 'Thorn Ro Zu'}
                 style={{
-                  width: '80px',
+                  width: floatingEmoji.emoji === 'spray_fish.gif' ? '140px' : '80px',
                   height: 'auto',
                   objectFit: 'contain',
                   borderRadius: '8px',
