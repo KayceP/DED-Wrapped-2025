@@ -162,12 +162,7 @@ function SlideArt({ stats }) {
         }}>
           Our server is blessed to be a digital home to so many talented artists that work with all sorts of mediums! While we may not have been able to capture every single creation you made in 2025, we wanted to highlight as many as we could. You can click an image to enlarge it, and also see the artist's name. Thank you for sharing your art with us,{' '}
           <span
-            style={{
-              color: 'var(--guild-orange)',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              textDecoration: 'underline'
-            }}
+            style={{ cursor: 'default' }}
             onMouseEnter={handleAmazingHover}
             onMouseLeave={handleAmazingLeave}
           >
