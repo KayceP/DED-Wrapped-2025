@@ -8,6 +8,27 @@ function SlideOutro({ stats }) {
   const [showEasterEgg, setShowEasterEgg] = useState(false)
   const [easterEggTimestamp, setEasterEggTimestamp] = useState(null)
   const [hoverTimeout, setHoverTimeout] = useState(null)
+  const [floatingEmojis, setFloatingEmojis] = useState([])
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e) => {
+    setMousePosition({ x: e.clientX, y: e.clientY })
+  }
+
+  const handleUmaHover = () => {
+    setFloatingEmojis([{
+      id: 'uma-musume-gif',
+      emoji: 'uma-musume.gif',
+      offsetX: 20,
+      offsetY: -30,
+      rotation: 0,
+      isGif: true
+    }])
+  }
+
+  const handleUmaLeave = () => {
+    setFloatingEmojis([])
+  }
 
   const toggleSection = (section) => {
     setActiveSection(activeSection === section ? null : section)
@@ -90,6 +111,14 @@ function SlideOutro({ stats }) {
       document.removeEventListener('click', handleClickOutside)
     }
   }, [showEasterEgg])
+
+  useEffect(() => {
+    document.addEventListener('mousemove', handleMouseMove)
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [])
+
   return (
     <div className="slide">
       <FloatingGhosts count={12} />
@@ -262,7 +291,7 @@ function SlideOutro({ stats }) {
                     <ul style={{ marginTop: '0.5rem', paddingLeft: '1.5rem' }}>
                       <li>Once we accepted the duty pop for the new year, Discord data was scraped from the DED discord server by our custom Discord bot <strong>Zi&apos;s Mammet</strong>, using the <a href="https://github.com/Tyrrrz/DiscordChatExporter"  target="_blank">DiscordChatExporter tool</a>.</li>
                       <li>The mammet diligently collected data covering the full year: <strong>January 1, 2025 to December 31, 2025</strong>. Then,  24+ hours later, we had the year exported in a sea of .json files!</li>
-                      <li>This includes almost all messages, reactions, and user interactions across all channels. <em>The only excluded data is any officer related channel or restricted channel, we couldn't let Arekin pad his numbers any more.</em></li>
+                      <li>This includes almost all messages, reactions, and user interactions across all channels. <em style={{ cursor: 'pointer' }} onMouseEnter={handleUmaHover} onMouseLeave={handleUmaLeave}>The only excluded data is any officer related channel or restricted channel, we couldn't let Arekin pad his numbers any more.</em></li>
                     </ul>
 
                     <p style={{ marginTop: '1rem', fontWeight: 'bold' }}>Step 2: Build it in a cave, with a box of <s>scraps</s> libraries:</p>
@@ -480,6 +509,36 @@ function SlideOutro({ stats }) {
             </div>
           )}
         </div>
+
+        {/* Floating Emojis */}
+        {floatingEmojis.map((floatingEmoji) => (
+          <div
+            key={floatingEmoji.id}
+            style={{
+              position: 'fixed',
+              left: mousePosition.x + floatingEmoji.offsetX,
+              top: mousePosition.y + floatingEmoji.offsetY,
+              pointerEvents: 'none',
+              zIndex: 9999,
+              animation: floatingEmoji.isGif ? 'none' : 'float 2s ease-in-out infinite',
+              transform: `rotate(${floatingEmoji.rotation}deg)`
+            }}
+          >
+            {floatingEmoji.isGif ? (
+              <img
+                src={`${import.meta.env.BASE_URL}assets/${floatingEmoji.emoji}`}
+                alt="Uma Musume"
+                style={{
+                  width: '80px',
+                  height: 'auto',
+                  objectFit: 'contain',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                }}
+              />
+            ) : null}
+          </div>
+        ))}
       </div>
     </div>
   )
