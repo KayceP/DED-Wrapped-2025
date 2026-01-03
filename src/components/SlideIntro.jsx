@@ -1,15 +1,28 @@
+import { useState } from 'react'
 import '../styles/Slide.css'
 import FloatingGhosts from './FloatingGhosts'
 
 function SlideIntro({ stats }) {
+  const [currentBanner, setCurrentBanner] = useState(0)
+
+  const banners = [
+    'guild_banner.jpg',
+    'guild_banner_christmas.png',
+    'guild_banner_spooky.png'
+  ]
+
+  const handleBannerClick = () => {
+    setCurrentBanner((prev) => (prev + 1) % banners.length)
+  }
   return (
     <div className="slide">
       <FloatingGhosts count={10} />
       <div className="slide-content">
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <img
-            src={`${import.meta.env.BASE_URL}assets/guild_banner.jpg`}
+            src={`${import.meta.env.BASE_URL}assets/${banners[currentBanner]}`}
             alt="DED Guild Banner"
+            onClick={handleBannerClick}
             style={{
               width: '100%',
               maxWidth: '700px',
@@ -17,7 +30,15 @@ function SlideIntro({ stats }) {
               borderRadius: '16px',
               border: '4px solid var(--guild-red)',
               boxShadow: '0 12px 40px rgba(220, 38, 38, 0.4)',
-              marginBottom: '2rem'
+              marginBottom: '2rem',
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.02)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)'
             }}
           />
         </div>
