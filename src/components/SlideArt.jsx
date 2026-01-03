@@ -4,6 +4,35 @@ import '../styles/Slide.css'
 function SlideArt({ stats }) {
   const [selectedArt, setSelectedArt] = useState(null)
   const [artFiles, setArtFiles] = useState([])
+  const [floatingEmojis, setFloatingEmojis] = useState([])
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e) => {
+    setMousePosition({ x: e.clientX, y: e.clientY })
+  }
+
+  const handleAmazingHover = () => {
+    setFloatingEmojis([{
+      id: 'amazing-hover',
+      emoji: 'argo_hover.png',
+      offsetX: 20,
+      offsetY: -30,
+      rotation: 0,
+      isGif: false,
+      width: '300px'
+    }])
+  }
+
+  const handleAmazingLeave = () => {
+    setFloatingEmojis([])
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousemove', handleMouseMove)
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [])
 
   // List of art files - this would ideally be dynamic, but for now we'll hardcode
   // based on the files we know exist
@@ -131,7 +160,19 @@ function SlideArt({ stats }) {
           marginLeft: 'auto',
           marginRight: 'auto'
         }}>
-          Our server is blessed to be a digital home to so many talented artists that work with all sorts of mediums! While we may not have been able to capture every single creation you made in 2025, we wanted to highlight as many as we could. You can click an image to enlarge it, and also see the artist's name. Thank you for sharing your art with us, you are AMAZING!!
+          Our server is blessed to be a digital home to so many talented artists that work with all sorts of mediums! While we may not have been able to capture every single creation you made in 2025, we wanted to highlight as many as we could. You can click an image to enlarge it, and also see the artist's name. Thank you for sharing your art with us,{' '}
+          <span
+            style={{
+              color: 'var(--guild-orange)',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+              textDecoration: 'underline'
+            }}
+            onMouseEnter={handleAmazingHover}
+            onMouseLeave={handleAmazingLeave}
+          >
+            you are AMAZING!!
+          </span>
         </p>
 
         <div style={{
@@ -301,6 +342,50 @@ function SlideArt({ stats }) {
             </div>
           </div>
         )}
+
+        {/* Floating Emojis */}
+        {floatingEmojis.map((floatingEmoji) => (
+          <div
+            key={floatingEmoji.id}
+            style={{
+              position: 'fixed',
+              left: mousePosition.x + floatingEmoji.offsetX,
+              top: mousePosition.y + floatingEmoji.offsetY,
+              pointerEvents: 'none',
+              zIndex: 9999,
+              animation: floatingEmoji.isGif ? 'none' : 'float 2s ease-in-out infinite',
+              transform: `rotate(${floatingEmoji.rotation}deg)`
+            }}
+          >
+            {floatingEmoji.isGif ? (
+              <img
+                src={`${import.meta.env.BASE_URL}assets/${floatingEmoji.emoji}`}
+                alt="floating emoji"
+                style={{
+                  width: floatingEmoji.width || '100px',
+                  height: 'auto',
+                  objectFit: 'contain',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                }}
+              />
+            ) : floatingEmoji.width ? (
+              <img
+                src={`${import.meta.env.BASE_URL}assets/${floatingEmoji.emoji}`}
+                alt="floating emoji"
+                style={{
+                  width: floatingEmoji.width,
+                  height: 'auto',
+                  objectFit: 'contain',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                }}
+              />
+            ) : (
+              <span style={{ fontSize: '2rem' }}>{floatingEmoji.emoji}</span>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   )
