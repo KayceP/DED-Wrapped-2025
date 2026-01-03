@@ -605,6 +605,18 @@ function SlideFFXIV({ stats }) {
                     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
                   }}
                 />
+              ) : floatingEmoji.width ? (
+                <img
+                  src={`${import.meta.env.BASE_URL}assets/${floatingEmoji.emoji}`}
+                  alt="Large hover image"
+                  style={{
+                    width: floatingEmoji.width,
+                    height: 'auto',
+                    objectFit: 'contain',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                  }}
+                />
               ) : (
                 renderEmoji(floatingEmoji.emoji, '2rem')
               )}
