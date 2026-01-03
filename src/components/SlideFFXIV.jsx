@@ -168,7 +168,8 @@ function SlideFFXIV({ stats }) {
         offsetX: 20,
         offsetY: -30,
         rotation: 0,
-        isGif: true
+        isGif: true,
+        width: '200px'
       }])
     }
   }
@@ -641,7 +642,7 @@ function SlideFFXIV({ stats }) {
                   src={`${import.meta.env.BASE_URL}assets/${floatingEmoji.emoji}`}
                   alt="Perfect Alexander"
                   style={{
-                    width: '100px',
+                    width: floatingEmoji.width || '100px',
                     height: 'auto',
                     objectFit: 'contain',
                     borderRadius: '8px',
