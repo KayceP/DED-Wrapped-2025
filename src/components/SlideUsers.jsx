@@ -1,8 +1,37 @@
+import { useState, useEffect } from 'react'
 import '../styles/Slide.css'
 import FloatingGhosts from './FloatingGhosts'
 
 function SlideUsers({ stats }) {
   const topUsers = stats?.topUsers?.slice(0, 10) || []
+  const [floatingEmojis, setFloatingEmojis] = useState([])
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e) => {
+    setMousePosition({ x: e.clientX, y: e.clientY })
+  }
+
+  const handleThornHover = () => {
+    setFloatingEmojis([{
+      id: 'thorn-gif',
+      emoji: 'thorn_rozu.gif',
+      offsetX: 20,
+      offsetY: -30,
+      rotation: 0,
+      isGif: true
+    }])
+  }
+
+  const handleThornLeave = () => {
+    setFloatingEmojis([])
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousemove', handleMouseMove)
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [])
 
 
   if (!stats || !topUsers.length) {
@@ -24,7 +53,13 @@ function SlideUsers({ stats }) {
         <p className="slide-subtitle">Top contributors of 2025</p>
         <div className="user-list">
           {topUsers.map((user, index) => (
-            <div key={user.id} className="user-item" style={{ animationDelay: `${index * 0.1}s` }}>
+            <div
+              key={user.id}
+              className="user-item"
+              style={{ animationDelay: `${index * 0.1}s` }}
+              onMouseEnter={() => index === 1 && handleThornHover()}
+              onMouseLeave={() => index === 1 && handleThornLeave()}
+            >
               <div className="user-rank">#{index + 1}</div>
               {user.avatarUrl && (
                 <img 
@@ -46,6 +81,36 @@ function SlideUsers({ stats }) {
             </div>
           ))}
         </div>
+
+        {/* Floating Emojis */}
+        {floatingEmojis.map((floatingEmoji) => (
+          <div
+            key={floatingEmoji.id}
+            style={{
+              position: 'fixed',
+              left: mousePosition.x + floatingEmoji.offsetX,
+              top: mousePosition.y + floatingEmoji.offsetY,
+              pointerEvents: 'none',
+              zIndex: 9999,
+              animation: floatingEmoji.isGif ? 'none' : 'float 2s ease-in-out infinite',
+              transform: `rotate(${floatingEmoji.rotation}deg)`
+            }}
+          >
+            {floatingEmoji.isGif ? (
+              <img
+                src={`${import.meta.env.BASE_URL}assets/${floatingEmoji.emoji}`}
+                alt="Thorn Ro Zu"
+                style={{
+                  width: '80px',
+                  height: 'auto',
+                  objectFit: 'contain',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                }}
+              />
+            ) : null}
+          </div>
+        ))}
       </div>
     </div>
   )
