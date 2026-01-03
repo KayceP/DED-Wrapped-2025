@@ -11,18 +11,31 @@ function SlideUsers({ stats }) {
     setMousePosition({ x: e.clientX, y: e.clientY })
   }
 
-  const handleThornHover = () => {
-    setFloatingEmojis([{
-      id: 'thorn-gif',
-      emoji: 'thorn_rozu.gif',
-      offsetX: 20,
-      offsetY: -30,
-      rotation: 0,
-      isGif: true
-    }])
+  const handleHover = (userIndex) => {
+    if (userIndex === 0) {
+      // #1 user - spray fish GIF
+      setFloatingEmojis([{
+        id: 'spray-fish-gif',
+        emoji: 'spray_fish.gif',
+        offsetX: 20,
+        offsetY: -30,
+        rotation: 0,
+        isGif: true
+      }])
+    } else if (userIndex === 1) {
+      // #2 user - thorn GIF
+      setFloatingEmojis([{
+        id: 'thorn-gif',
+        emoji: 'thorn_rozu.gif',
+        offsetX: 20,
+        offsetY: -30,
+        rotation: 0,
+        isGif: true
+      }])
+    }
   }
 
-  const handleThornLeave = () => {
+  const handleLeave = () => {
     setFloatingEmojis([])
   }
 
@@ -57,8 +70,8 @@ function SlideUsers({ stats }) {
               key={user.id}
               className="user-item"
               style={{ animationDelay: `${index * 0.1}s` }}
-              onMouseEnter={() => index === 1 && handleThornHover()}
-              onMouseLeave={() => index === 1 && handleThornLeave()}
+              onMouseEnter={() => (index === 0 || index === 1) && handleHover(index)}
+              onMouseLeave={() => (index === 0 || index === 1) && handleLeave()}
             >
               <div className="user-rank">#{index + 1}</div>
               {user.avatarUrl && (
