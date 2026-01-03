@@ -174,6 +174,7 @@ function SlideFFXIV({ stats }) {
       'bard': 'Bard.png',
       'bluemage': 'BlueMage.png',
       'dancer': 'Dancer.png',
+      'dragoon': 'Dragoon.png',
       'monk': 'Monk.png',
       'ninja': 'Ninja.png',
       'reaper': 'Reaper.png',
