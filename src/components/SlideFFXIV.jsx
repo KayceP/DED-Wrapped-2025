@@ -8,7 +8,12 @@ function SlideFFXIV({ stats }) {
   const topJobs = ffxiv.topJobs || []
   const topRaids = ffxiv.topRaids || []
   const topContent = ffxiv.topContent || []
-  const topDedContent = ffxiv.topDedContent || []
+  const dedContentMentions = ffxiv.dedContentMentions || {}
+
+  // Convert dedContentMentions object to sorted array for display
+  const allDedContent = Object.entries(dedContentMentions)
+    .map(([content, count]) => ({ content, count }))
+    .sort((a, b) => b.count - a.count)
 
   const [showSlutEasterEgg, setShowSlutEasterEgg] = useState(false)
   const [slutEasterEggTimestamp, setSlutEasterEggTimestamp] = useState(null)
@@ -396,13 +401,13 @@ function SlideFFXIV({ stats }) {
             </div>
           )}
 
-          {topDedContent.length > 0 && (
+          {allDedContent.length > 0 && (
             <div style={{ marginTop: '3rem' }}>
               <h3 style={{ fontSize: '1.5rem', color: 'var(--guild-orange)', marginBottom: '1rem' }}>
                 DED Specific Content Mentions
               </h3>
               <div className="word-cloud">
-                {topDedContent.map((item, index) => (
+                {allDedContent.map((item, index) => (
                   <span
                     key={item.content}
                     className="word-item"
