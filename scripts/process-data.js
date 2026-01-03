@@ -478,7 +478,9 @@ function aggregateStats() {
         ]
 
         dedKeywords.forEach(keyword => {
-          if (contentLower.includes(keyword.toLowerCase())) {
+          // Use word boundaries to match exact words only
+          const regex = new RegExp(`\\b${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i')
+          if (regex.test(contentLower)) {
             // Normalize the keyword for counting (use the base form)
             let normalizedKey = keyword
             if (['ma wife', 'my wife'].includes(keyword)) normalizedKey = 'mah wife'
