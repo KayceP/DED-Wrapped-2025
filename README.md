@@ -79,18 +79,81 @@ See `tools/search-json.js` for all available options.
 
 ## Deployment
 
-### GitHub Pages
+### GitHub Pages Setup (Complete Steps)
 
-1. Update `vite.config.js` with your repository name if different from `DED-Wrapped-2025`
-2. Push to GitHub
-3. Enable GitHub Pages in repository settings (Settings > Pages)
-4. Select "GitHub Actions" as the source
-5. The workflow will automatically build and deploy on push to `main`
+#### Initial Repository Setup
+
+1. **Create a GitHub repository** and push your project:
+   ```bash
+   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   git push -u origin main
+   ```
+
+2. **Update repository name in config** (if different from `DED-Wrapped-2025`):
+   - Edit `vite.config.js` and change the `base` path to match your repo name
+   - Example: `base: '/YOUR_REPO_NAME/'`
+
+#### Enable GitHub Pages
+
+3. **Go to repository Settings** → **Pages**
+4. **Select "GitHub Actions"** as the source
+5. **Save changes**
+
+#### Prepare Production Data
+
+6. **Generate production statistics** (locally):
+   ```bash
+   # Process latest Discord data
+   npm run process-data
+
+   # Copy current stats to production version
+   npm run prepare-deploy
+   ```
+
+7. **Commit production data**:
+   ```bash
+   git add public/data/stats.production.json
+   git commit -m "Update production statistics"
+   git push origin main
+   ```
+
+#### Automatic Deployment
+
+8. **Push triggers deployment**:
+   - GitHub Actions automatically builds and deploys on every push to `main`
+   - Visit `https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/` when complete
+   - Check Actions tab for deployment status
+
+#### Updating Production Data
+
+When you want to update the live site with new data:
+
+```bash
+# 1. Process latest Discord data locally
+npm run process-data
+
+# 2. Prepare production data
+npm run prepare-deploy
+
+# 3. Commit and push (triggers automatic deployment)
+git add public/data/stats.production.json
+git commit -m "Update live site statistics"
+git push origin main
+```
+
+**Important Notes:**
+- `stats.production.json` contains your processed statistics (safe to commit)
+- Raw Discord JSON files never leave your machine (privacy protected)
+- The workflow copies `stats.production.json` → `stats.json` during build
+
+**See [WORKFLOW.md](WORKFLOW.md) for detailed development workflow documentation.**
 
 ### Manual Deployment
 
+If you prefer manual deployment:
+
 1. Run `npm run build`
-2. Deploy the `dist` folder to your static hosting service
+2. Deploy the `dist` folder to your static hosting service (Netlify, Vercel, etc.)
 
 ## Project Structure
 
