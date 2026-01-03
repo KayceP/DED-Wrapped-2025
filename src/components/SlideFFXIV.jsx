@@ -160,6 +160,23 @@ function SlideFFXIV({ stats }) {
     setFloatingEmojis([])
   }
 
+  const handleRaidHover = (raidName) => {
+    if (raidName.toLowerCase() === 'ultimate') {
+      setFloatingEmojis([{
+        id: 'ultimate-hover',
+        emoji: 'tea-epic-of-alexander.gif',
+        offsetX: 20,
+        offsetY: -30,
+        rotation: 0,
+        isGif: true
+      }])
+    }
+  }
+
+  const handleRaidLeave = () => {
+    setFloatingEmojis([])
+  }
+
 
   const handleSlutClick = () => {
     setSlutEasterEggTimestamp(new Date().toISOString())
@@ -308,7 +325,13 @@ function SlideFFXIV({ stats }) {
               {topRaids.map((item, index) => {
                 const raidIconFile = getRaidIcon(item.raid)
                 return (
-                  <div key={item.raid} className="stat-card ffxiv-raid-card" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <div
+                    key={item.raid}
+                    className="stat-card ffxiv-raid-card"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                    onMouseEnter={() => item.raid.toLowerCase() === 'ultimate' && handleRaidHover(item.raid)}
+                    onMouseLeave={() => item.raid.toLowerCase() === 'ultimate' && handleRaidLeave()}
+                  >
                     {raidIconFile && (
                       <div style={{
                         width: '60px',
