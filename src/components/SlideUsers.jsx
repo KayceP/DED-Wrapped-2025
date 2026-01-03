@@ -127,21 +127,25 @@ function SlideUsers({ stats }) {
               zIndex: 9999,
               animation: floatingEmoji.isGif ? 'none' : 'float 2s ease-in-out infinite',
               transform: `rotate(${floatingEmoji.rotation}deg)`
+              transform: `rotate(${floatingEmoji.rotation}deg)`
             }}
           >
-            {floatingEmoji.isGif ? (
-              <img
-                src={`${import.meta.env.BASE_URL}assets/${floatingEmoji.emoji}`}
-                alt={floatingEmoji.emoji === 'spray_fish.gif' ? 'Spray Fish' : 'Thorn Ro Zu'}
-                style={{
-                  width: floatingEmoji.emoji === 'spray_fish.gif' ? '140px' : '80px',
-                  height: 'auto',
-                  objectFit: 'contain',
-                  borderRadius: '8px',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
-                }}
-              />
-            ) : null}
+            <img
+              src={`${import.meta.env.BASE_URL}assets/${floatingEmoji.emoji}`}
+              alt={
+                floatingEmoji.emoji === 'spray_fish.gif' ? 'Spray Fish' :
+                floatingEmoji.emoji === 'thorn_rozu.gif' ? 'Thorn Ro Zu' :
+                floatingEmoji.emoji === 'discord_perms.png' ? 'Discord Perms' :
+                floatingEmoji.emoji === 'asha.png' ? 'Asha' : 'Image'
+              }
+              style={{
+                width: floatingEmoji.emoji === 'spray_fish.gif' ? '140px' : '80px',
+                height: 'auto',
+                objectFit: 'contain',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+              }}
+            />
           </div>
         ))}
       </div>
