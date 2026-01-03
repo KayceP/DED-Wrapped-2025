@@ -120,6 +120,20 @@ function SlideArt({ stats }) {
           Celebrating the incredible talent in our community
         </p>
 
+        <p style={{
+          fontSize: '1.1rem',
+          color: 'var(--guild-text)',
+          lineHeight: '1.6',
+          marginTop: '1.5rem',
+          marginBottom: '2rem',
+          maxWidth: '800px',
+          textAlign: 'center',
+          marginLeft: 'auto',
+          marginRight: 'auto'
+        }}>
+          Our server is blessed to be a digital home to so many talented artists that work with all sorts of mediums! While we may not have been able to capture every single creation you made in 2025, we wanted to highlight as many as we could. You can click an image to enlarge it, and also see the artist's name. Thank you for sharing your art with us, you are AMAZING!!
+        </p>
+
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
