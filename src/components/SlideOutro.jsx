@@ -92,7 +92,7 @@ function SlideOutro({ stats }) {
   }, [showEasterEgg])
   return (
     <div className="slide">
-      <FloatingGhosts count={Math.floor(Math.random() * 8) + 3} />
+      <FloatingGhosts count={7} />
       <div className="slide-content">
         <h2 className="slide-title">Thanks for an amazing 2025!</h2>
         <p className="slide-subtitle" style={{ fontSize: '1.8rem', marginTop: '2rem' }}>

@@ -83,7 +83,7 @@ function SlideEmoji({ stats }) {
 
   return (
     <div className="slide">
-      <FloatingGhosts count={Math.floor(Math.random() * 8) + 3} />
+      <FloatingGhosts count={6} />
       <div className="slide-content">
         <h2 className="slide-title">Most Used Emoji</h2>
         <p className="slide-subtitle">DED's emoji language decoded</p>
@@ -135,7 +135,7 @@ function SlideEmoji({ stats }) {
                   const maxCount = topMessageEmojis[0][1]
                   const percentage = (count / maxCount) * 100
                   return (
-                    <div key={`message-${emoji}-${index}`} style={{
+                    <div key={emoji} style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.75rem'
@@ -215,7 +215,7 @@ function SlideEmoji({ stats }) {
                   const maxCount = topReactionEmojis[0][1]
                   const percentage = (count / maxCount) * 100
                   return (
-                    <div key={`reaction-${emoji}-${index}`} style={{
+                    <div key={emoji} style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.75rem'
@@ -295,7 +295,7 @@ function SlideEmoji({ stats }) {
                   const maxCount = topCombinedEmojis[0][1]
                   const percentage = (count / maxCount) * 100
                   return (
-                    <div key={`combined-${emoji}-${index}`} style={{
+                    <div key={emoji} style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.75rem'
@@ -380,7 +380,7 @@ function SlideEmoji({ stats }) {
                   const maxCount = topCustomEmojis[0][1]
                   const percentage = (count / maxCount) * 100
                   return (
-                    <div key={`custom-${emoji}-${index}`} style={{
+                    <div key={emoji} style={{
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',

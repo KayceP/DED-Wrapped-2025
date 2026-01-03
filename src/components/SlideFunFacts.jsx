@@ -27,6 +27,13 @@ function SlideFunFacts({ stats }) {
   const brevityRatio = totalValidMessages > 0 ? Math.round((brevityMessages / totalValidMessages) * 100) : 0
   const depthRatio = totalValidMessages > 0 ? Math.round((depthMessages / totalValidMessages) * 100) : 0
 
+  // Debug logging
+  console.log('Communication Spectrum Debug:')
+  console.log('Total valid messages:', totalValidMessages)
+  console.log('Brevity (≤50 chars):', brevityMessages, `(${brevityRatio}%)`)
+  console.log('Depth (>50 chars):', depthMessages, `(${depthRatio}%)`)
+  console.log('Total check:', brevityRatio + depthRatio, '% (should be 100%)')
+
   // Emoji diversity champion (only if emoji data exists)
   const usersWithEmojiData = usersWithData.filter(user => user.uniqueEmojis && Object.keys(user.uniqueEmojis).length > 0)
   const emojiDiversityUser = usersWithEmojiData.length > 0
@@ -42,6 +49,14 @@ function SlideFunFacts({ stats }) {
     (user.uniqueMentions?.length || 0) > (max?.uniqueMentions?.length || 0) ? user : max,
     usersWithData[0]
   )
+
+  // Debug emoji data
+  console.log('Emoji data debug:')
+  console.log('Users with emoji data:', usersWithEmojiData.length)
+  console.log('Emoji diversity user:', emojiDiversityUser)
+  if (emojiDiversityUser) {
+    console.log('Emoji count:', Object.keys(emojiDiversityUser.uniqueEmojis || {}).length)
+  }
 
   // Communication timing insights
   const totalActivityHours = activityByHour.reduce((sum, count) => sum + count, 0)
@@ -91,7 +106,7 @@ function SlideFunFacts({ stats }) {
 
   return (
     <div className="slide">
-      <FloatingGhosts count={Math.floor(Math.random() * 8) + 3} />
+      <FloatingGhosts count={5} />
       <div className="slide-content">
         <h2 className="slide-title">🎭 Communication Styles</h2>
         <p className="slide-subtitle">The diverse personalities in our conversations</p>

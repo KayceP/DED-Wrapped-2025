@@ -87,7 +87,7 @@ function SlideTimeline({ stats }) {
 
   return (
     <div className="slide">
-      <FloatingGhosts count={Math.floor(Math.random() * 8) + 3} />
+      <FloatingGhosts count={5} />
       <div className="slide-content">
         <h2 className="slide-title">Conversation Evolution</h2>
         <p className="slide-subtitle">How our community conversations changed over 2025</p>

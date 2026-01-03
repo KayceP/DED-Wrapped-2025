@@ -47,7 +47,7 @@ function SlideUsers({ stats }) {
 
   return (
     <div className="slide">
-      <FloatingGhosts count={Math.floor(Math.random() * 8) + 3} />
+      <FloatingGhosts count={4} />
       <div className="slide-content">
         <h2 className="slide-title">Most Active Members</h2>
         <p className="slide-subtitle">Top contributors of 2025</p>

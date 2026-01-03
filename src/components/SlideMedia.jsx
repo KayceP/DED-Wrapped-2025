@@ -20,7 +20,7 @@ function SlideMedia({ stats }) {
 
   return (
     <div className="slide">
-      <FloatingGhosts count={Math.floor(Math.random() * 8) + 3} />
+      <FloatingGhosts count={3} />
       <div className="slide-content">
         <h2 className="slide-title">Media Shared</h2>
 

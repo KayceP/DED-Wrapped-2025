@@ -9,7 +9,7 @@ function SlideReactions({ stats }) {
 
   return (
     <div className="slide">
-      <FloatingGhosts count={Math.floor(Math.random() * 8) + 3} />
+      <FloatingGhosts count={4} />
       <div className="slide-content">
         <h2 className="slide-title">Most Reacted Messages</h2>
         <p className="slide-subtitle">The messages that got the most love</p>

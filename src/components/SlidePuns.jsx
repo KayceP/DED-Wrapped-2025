@@ -50,7 +50,7 @@ function SlidePuns({ stats }) {
 
   return (
     <div className="slide" style={{ paddingTop: '20px' }}>
-      <FloatingGhosts count={Math.floor(Math.random() * 8) + 3} />
+      <FloatingGhosts count={5} />
       <div className="slide-content" style={{ paddingBottom: '180px' }}>
         <h2 className="slide-title" style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎭 Pun Champion</h2>
         <p className="slide-subtitle" style={{ fontSize: '1.2rem', marginBottom: '2rem' }}>Devious Altani's Masterful Wordplay</p>
