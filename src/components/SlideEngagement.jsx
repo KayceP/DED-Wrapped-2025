@@ -15,7 +15,7 @@ function SlideEngagement({ stats }) {
 
   return (
     <div className="slide">
-      <FloatingGhosts count={4} />
+      <FloatingGhosts count={8} />
       <div className="slide-content">
         <h2 className="slide-title">Most Engaged Members</h2>
         <p className="slide-subtitle">Messages + Reactions + Attachments</p>

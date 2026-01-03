@@ -10,7 +10,7 @@ function SlideWords({ stats }) {
 
   return (
     <div className="slide">
-      <FloatingGhosts count={3} />
+      <FloatingGhosts count={6} />
       <div className="slide-content">
         <h2 className="slide-title">Most Used Words</h2>
         <p className="slide-subtitle">The words that defined 2025</p>

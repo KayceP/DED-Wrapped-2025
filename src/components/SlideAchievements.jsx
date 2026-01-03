@@ -245,7 +245,7 @@ function SlideAchievements({ stats }) {
 
   return (
     <div className="slide">
-      <FloatingGhosts count={6} />
+      <FloatingGhosts count={10} />
       <div className="slide-content">
         <h2 className="slide-title">🏆 Community Achievements</h2>
         <p className="slide-subtitle">Celebrating our standout members of 2025</p>

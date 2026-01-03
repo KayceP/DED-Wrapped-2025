@@ -83,7 +83,7 @@ function SlideEmoji({ stats }) {
 
   return (
     <div className="slide">
-      <FloatingGhosts count={6} />
+      <FloatingGhosts count={11} />
       <div className="slide-content">
         <h2 className="slide-title">Most Used Emoji</h2>
         <p className="slide-subtitle">DED's emoji language decoded</p>

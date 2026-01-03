@@ -92,7 +92,7 @@ function SlideOutro({ stats }) {
   }, [showEasterEgg])
   return (
     <div className="slide">
-      <FloatingGhosts count={7} />
+      <FloatingGhosts count={12} />
       <div className="slide-content">
         <h2 className="slide-title">Thanks for an amazing 2025!</h2>
         <p className="slide-subtitle" style={{ fontSize: '1.8rem', marginTop: '2rem' }}>

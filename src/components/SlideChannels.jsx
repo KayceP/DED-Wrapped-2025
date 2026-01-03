@@ -6,7 +6,7 @@ function SlideChannels({ stats }) {
 
   return (
     <div className="slide">
-      <FloatingGhosts count={3} />
+      <FloatingGhosts count={6} />
       <div className="slide-content">
         <h2 className="slide-title">Most Active Channels</h2>
         <p className="slide-subtitle">Where the conversation happened</p>

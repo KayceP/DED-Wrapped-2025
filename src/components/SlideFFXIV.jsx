@@ -205,7 +205,7 @@ function SlideFFXIV({ stats }) {
 
   return (
     <div className="slide">
-      <FloatingGhosts count={5} />
+      <FloatingGhosts count={11} />
       <div className="slide-content">
         <h2 className="slide-title">FFXIV Highlights</h2>
         <p className="slide-subtitle">Your Free Company's adventures in Eorzea</p>

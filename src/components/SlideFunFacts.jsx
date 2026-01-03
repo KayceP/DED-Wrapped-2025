@@ -106,7 +106,7 @@ function SlideFunFacts({ stats }) {
 
   return (
     <div className="slide">
-      <FloatingGhosts count={5} />
+      <FloatingGhosts count={9} />
       <div className="slide-content">
         <h2 className="slide-title">🎭 Communication Styles</h2>
         <p className="slide-subtitle">The diverse personalities in our conversations</p>
