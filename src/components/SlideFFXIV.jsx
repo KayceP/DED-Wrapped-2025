@@ -143,6 +143,16 @@ function SlideFFXIV({ stats }) {
         isGif: false,
         width: '250px'
       }])
+    } else if (jobName.toLowerCase() === 'sage') {
+      setFloatingEmojis([{
+        id: 'sage-hover',
+        emoji: 'sage_hover.png',
+        offsetX: 20,
+        offsetY: -30,
+        rotation: 0,
+        isGif: false,
+        width: '250px'
+      }])
     }
   }
 
@@ -252,8 +262,8 @@ function SlideFFXIV({ stats }) {
                     key={item.job}
                     className="stat-card ffxiv-job-card"
                     style={{ animationDelay: `${index * 0.1}s` }}
-                    onMouseEnter={() => (item.job.toLowerCase() === 'blue mage' || item.job.toLowerCase() === 'dragoon') && handleJobHover(item.job)}
-                    onMouseLeave={() => (item.job.toLowerCase() === 'blue mage' || item.job.toLowerCase() === 'dragoon') && handleJobLeave()}
+                    onMouseEnter={() => (item.job.toLowerCase() === 'blue mage' || item.job.toLowerCase() === 'dragoon' || item.job.toLowerCase() === 'sage') && handleJobHover(item.job)}
+                    onMouseLeave={() => (item.job.toLowerCase() === 'blue mage' || item.job.toLowerCase() === 'dragoon' || item.job.toLowerCase() === 'sage') && handleJobLeave()}
                   >
                     {iconFile && (
                       <div style={{
