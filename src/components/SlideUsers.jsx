@@ -52,6 +52,66 @@ function SlideUsers({ stats }) {
         rotation: 0,
         isGif: false
       }])
+    } else if (userIndex === 4) {
+      // #5 user - satsuma GIF
+      setFloatingEmojis([{
+        id: 'satsuma-gif',
+        emoji: 'satsuma.gif',
+        offsetX: 20,
+        offsetY: -30,
+        rotation: 0,
+        isGif: true
+      }])
+    } else if (userIndex === 5) {
+      // #6 user - anna image
+      setFloatingEmojis([{
+        id: 'anna-img',
+        emoji: 'anna.png',
+        offsetX: 20,
+        offsetY: -30,
+        rotation: 0,
+        isGif: false
+      }])
+    } else if (userIndex === 6) {
+      // #7 user - hr GIF
+      setFloatingEmojis([{
+        id: 'hr-gif',
+        emoji: 'hr.gif',
+        offsetX: 20,
+        offsetY: -30,
+        rotation: 0,
+        isGif: true
+      }])
+    } else if (userIndex === 7) {
+      // #8 user - elara GIF
+      setFloatingEmojis([{
+        id: 'elara-gif',
+        emoji: 'elara.gif',
+        offsetX: 20,
+        offsetY: -30,
+        rotation: 0,
+        isGif: true
+      }])
+    } else if (userIndex === 8) {
+      // #9 user - zi image
+      setFloatingEmojis([{
+        id: 'zi-img',
+        emoji: 'zi.png',
+        offsetX: 20,
+        offsetY: -30,
+        rotation: 0,
+        isGif: false
+      }])
+    } else if (userIndex === 9) {
+      // #10 user - athena image
+      setFloatingEmojis([{
+        id: 'athena-img',
+        emoji: 'athena.jpg',
+        offsetX: 20,
+        offsetY: -30,
+        rotation: 0,
+        isGif: false
+      }])
     }
   }
 
@@ -90,8 +150,8 @@ function SlideUsers({ stats }) {
               key={user.id}
               className="user-item"
               style={{ animationDelay: `${index * 0.1}s` }}
-              onMouseEnter={() => (index === 0 || index === 1 || index === 2 || index === 3) && handleHover(index)}
-              onMouseLeave={() => (index === 0 || index === 1 || index === 2 || index === 3) && handleLeave()}
+              onMouseEnter={() => (index >= 0 && index <= 9) && handleHover(index)}
+              onMouseLeave={() => (index >= 0 && index <= 9) && handleLeave()}
             >
               <div className="user-rank">#{index + 1}</div>
               {user.avatarUrl && (
