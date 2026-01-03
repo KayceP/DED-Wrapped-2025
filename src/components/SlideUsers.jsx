@@ -127,7 +127,6 @@ function SlideUsers({ stats }) {
               zIndex: 9999,
               animation: floatingEmoji.isGif ? 'none' : 'float 2s ease-in-out infinite',
               transform: `rotate(${floatingEmoji.rotation}deg)`
-              transform: `rotate(${floatingEmoji.rotation}deg)`
             }}
           >
             <img
