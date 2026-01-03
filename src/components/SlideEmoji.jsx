@@ -64,9 +64,15 @@ function SlideEmoji({ stats }) {
     .sort(([,a], [,b]) => b - a)
     .slice(0, 8)
 
-  // Get top custom emojis (combined from messages and reactions)
-  const allCustomEmojis = [...messageCustomEmojisCount, ...reactionCustomEmojisCount]
-  const topCustomEmojis = allCustomEmojis
+  // Get top custom emojis (combined from messages and reactions, deduplicated)
+  const customEmojiCounts = new Map()
+
+  // Combine counts from messages and reactions
+  ;[...messageCustomEmojisCount, ...reactionCustomEmojisCount].forEach(([emoji, count]) => {
+    customEmojiCounts.set(emoji, (customEmojiCounts.get(emoji) || 0) + count)
+  })
+
+  const topCustomEmojis = Array.from(customEmojiCounts.entries())
     .sort(([,a], [,b]) => b - a)
     .slice(0, 10)
 
