@@ -195,10 +195,25 @@ function SlideUsers({ stats }) {
                 floatingEmoji.emoji === 'spray_fish.gif' ? 'Spray Fish' :
                 floatingEmoji.emoji === 'thorn_rozu.gif' ? 'Thorn Ro Zu' :
                 floatingEmoji.emoji === 'discord_perms.png' ? 'Discord Perms' :
-                floatingEmoji.emoji === 'asha.png' ? 'Asha' : 'Image'
+                floatingEmoji.emoji === 'asha.png' ? 'Asha' :
+                floatingEmoji.emoji === 'satsuma.gif' ? 'Satsuma' :
+                floatingEmoji.emoji === 'anna.png' ? 'Anna' :
+                floatingEmoji.emoji === 'hr.gif' ? 'HR' :
+                floatingEmoji.emoji === 'elara.gif' ? 'Elara' :
+                floatingEmoji.emoji === 'zi.png' ? 'Zi' :
+                floatingEmoji.emoji === 'athena.jpg' ? 'Athena' : 'Image'
               }
               style={{
-                width: floatingEmoji.emoji === 'spray_fish.gif' ? '140px' : '80px',
+                width:
+                  floatingEmoji.emoji === 'spray_fish.gif' ? '280px' : // #1: 140px + 100% = 280px
+                  (floatingEmoji.emoji === 'thorn_rozu.gif' || // #2
+                   floatingEmoji.emoji === 'satsuma.gif' ||   // #5
+                   floatingEmoji.emoji === 'hr.gif' ||        // #7
+                   floatingEmoji.emoji === 'elara.gif') ? '160px' : // 80px + 100% = 160px
+                  (floatingEmoji.emoji === 'discord_perms.png' || // #3
+                   floatingEmoji.emoji === 'asha.png' ||      // #4
+                   floatingEmoji.emoji === 'zi.png') ? '120px' : // 80px + 50% = 120px
+                  '80px', // #6 (anna.png), #10 (athena.jpg) stay at 80px
                 height: 'auto',
                 objectFit: 'contain',
                 borderRadius: '8px',
