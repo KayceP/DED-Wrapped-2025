@@ -1332,4 +1332,24 @@
   /* No special styling to blend in */
 }
 
+/* Outro Slide Link Styling */
+.outro-content a {
+  color: var(--guild-red) !important;
+  text-decoration: none !important;
+  transition: color 0.3s ease !important;
+}
+
+.outro-content a:hover {
+  color: var(--guild-orange) !important;
+  text-decoration: underline !important;
+}
+
+.outro-content a:visited {
+  color: var(--guild-orange) !important;
+}
+
+.outro-content a:active {
+  color: var(--ffxiv-red) !important;
+}
+
 

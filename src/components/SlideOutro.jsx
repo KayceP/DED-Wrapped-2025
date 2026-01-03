@@ -122,7 +122,7 @@ function SlideOutro({ stats }) {
   return (
     <div className="slide">
       <FloatingGhosts count={12} />
-      <div className="slide-content">
+      <div className="slide-content outro-content">
         <h2 className="slide-title">Thanks for an amazing 2025!</h2>
         <p className="slide-subtitle" style={{ fontSize: '1.8rem', marginTop: '2rem' }}>
           Here's to another year of adventures together in Eorzea and beyond
@@ -208,30 +208,30 @@ function SlideOutro({ stats }) {
               padding: '1.5rem',
               marginBottom: '1rem'
             }}>
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.8rem',
-                alignItems: 'center',
-                fontSize: '1rem',
-                color: 'var(--guild-text)'
-              }}>
-                <div>
-                  <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Data Scraping:</span> Zi's Mammet
-                </div>
-                <div>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.8rem',
+            alignItems: 'center',
+            fontSize: '1rem',
+            color: 'var(--guild-text)'
+          }}>
+            <div>
+              <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Data Scraping:</span> Zi's Mammet
+            </div>
+            <div>
                   <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Analytics Library:</span> Chat-analytics
-                </div>
-                <div>
+            </div>
+            <div>
                   <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Programmer & Creative Director:</span> Zi
-                </div>
-                <div>
+            </div>
+            <div>
                   <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>DED Beta Testers:</span> Thorn, Val Reina, A Cade, Cleo "League Dealer" Linieh, AArekin AAlatus
-                </div>
-                <div>
-                  <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Presentation Magic:</span> React & D3
-                </div>
-                <div>
+            </div>
+            <div>
+              <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Presentation Magic:</span> React & D3
+            </div>
+            <div>
                   <span style={{ color: 'var(--guild-orange)', fontWeight: 'bold' }}>Coding Fuel:</span> Cold Brew & FFXIV Music
                 </div>
               </div>
@@ -505,8 +505,8 @@ function SlideOutro({ stats }) {
                 }}>
                   Found at: {easterEggTimestamp ? new Date(easterEggTimestamp).toLocaleString() : 'Loading...'}
                 </div>
-              </div>
             </div>
+          </div>
           )}
         </div>
 
