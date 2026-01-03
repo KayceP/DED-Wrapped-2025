@@ -120,11 +120,11 @@ function SlideTimeline({ stats }) {
               const halfwayPoint = count >= totalMessages * 0.5 && cumulativeMessages[month - 1] < totalMessages * 0.5
 
               return (
-                <div key={month} className="month-bar-container" style={{ height: `${heightPx}px` }}>
+                <div key={month} className="month-bar-container">
                   <div
                     className={`month-bar ${halfwayPoint || milestoneHere ? 'milestone' : ''}`}
-                    style={{
-                      height: '100%',
+              style={{
+                      height: `${heightPx}px`,
                       background: halfwayPoint
                         ? 'var(--gradient-orange)'
                         : milestoneHere

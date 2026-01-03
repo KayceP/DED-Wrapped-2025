@@ -399,16 +399,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
   gap: 0.5rem;
   height: 100%;
 }
 
 .month-bar {
   width: 100%;
-  height: 100%;
   border-radius: 4px 4px 0 0;
   transition: all 0.3s ease;
   position: relative;
+  min-height: 4px;
 }
 
 .month-bar:hover {
@@ -815,11 +816,11 @@
   .slide-title {
     font-size: 2.5rem;
   }
-
+  
   .big-number {
     font-size: 5rem;
   }
-
+  
   .stat-grid {
     grid-template-columns: 1fr;
   }
