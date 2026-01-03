@@ -232,7 +232,7 @@ function SlideWords({ stats }) {
                 fontSize: '1.1rem'
               }}>
                 Oh no! You found the secret FC unionizing plot! 🏭⚡<br/>
-                <strong>Don't you dare rat us out to Thorn!</strong> 🤫<br/>
+                <strong>Don't you dare rat us out to Thorn!</strong><br/>
                 Take a screenshot and post this in the discord to claim your prize!
               </p>
 
