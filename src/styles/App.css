@@ -83,6 +83,34 @@
   cursor: not-allowed;
 }
 
+.nav-button.deactivated {
+  opacity: 0.4;
+  background: rgba(113, 37, 193, 0.1);
+  border-color: var(--ffxiv-text-dim);
+  cursor: pointer; /* Keep pointer cursor for easter egg */
+}
+
+.nav-button.deactivated:hover {
+  background: rgba(113, 37, 193, 0.1);
+  transform: none;
+  opacity: 0.4;
+}
+
+.nav-button.deactivated:hover::after {
+  content: "🚫";
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
 .slide-indicator {
   color: var(--ffxiv-text-dim);
   font-size: 14px;
