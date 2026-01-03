@@ -529,7 +529,7 @@ function SlideOutro({ stats }) {
                 src={`${import.meta.env.BASE_URL}assets/${floatingEmoji.emoji}`}
                 alt="Uma Musume"
                 style={{
-                  width: '80px',
+                  width: '240px',
                   height: 'auto',
                   objectFit: 'contain',
                   borderRadius: '8px',
