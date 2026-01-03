@@ -133,6 +133,16 @@ function SlideFFXIV({ stats }) {
         isGif: false,
         width: '250px'
       }])
+    } else if (jobName.toLowerCase() === 'dragoon') {
+      setFloatingEmojis([{
+        id: 'dragoon-hover',
+        emoji: 'dragoon_hover.jpg',
+        offsetX: 20,
+        offsetY: -30,
+        rotation: 0,
+        isGif: false,
+        width: '250px'
+      }])
     }
   }
 
@@ -242,8 +252,8 @@ function SlideFFXIV({ stats }) {
                     key={item.job}
                     className="stat-card ffxiv-job-card"
                     style={{ animationDelay: `${index * 0.1}s` }}
-                    onMouseEnter={() => item.job.toLowerCase() === 'blue mage' && handleJobHover(item.job)}
-                    onMouseLeave={() => item.job.toLowerCase() === 'blue mage' && handleJobLeave()}
+                    onMouseEnter={() => (item.job.toLowerCase() === 'blue mage' || item.job.toLowerCase() === 'dragoon') && handleJobHover(item.job)}
+                    onMouseLeave={() => (item.job.toLowerCase() === 'blue mage' || item.job.toLowerCase() === 'dragoon') && handleJobLeave()}
                   >
                     {iconFile && (
                       <div style={{
