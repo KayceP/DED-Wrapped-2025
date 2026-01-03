@@ -151,7 +151,7 @@ function SlideFFXIV({ stats }) {
         offsetY: -30,
         rotation: 0,
         isGif: false,
-        width: '250px'
+        width: '300px'
       }])
     }
   }
