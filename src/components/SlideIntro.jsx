@@ -4,7 +4,7 @@ import FloatingGhosts from './FloatingGhosts'
 function SlideIntro({ stats }) {
   return (
     <div className="slide">
-      <FloatingGhosts count={3} />
+      <FloatingGhosts count={10} />
       <div className="slide-content">
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <img
