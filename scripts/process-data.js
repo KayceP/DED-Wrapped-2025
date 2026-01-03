@@ -32,18 +32,6 @@ const FFXIV_KEYWORDS = {
   jobs: ['warrior', 'paladin', 'dark knight', 'gunbreaker', 'white mage', 'scholar', 'astrologian', 'sage', 'monk', 'dragoon', 'ninja', 'samurai', 'reaper', 'bard', 'machinist', 'dancer', 'black mage', 'summoner', 'red mage', 'blue mage'],
   raids: ['savage', 'ultimate', 'extreme', 'unreal', 'alliance', 'trial', 'dungeon'],
   content: ['raid', 'clear', 'parse', 'log', 'static', 'pf', 'party finder', 'fc', 'free company', 'housing', 'glamour', 'glam', 'mount', 'minion', 'minions', 'phys', 'ranged', 'physical ranged', 'phys ranged'],
-  dedContent: {
-    'yo tea': ['yo tea', 'tea?', 'yo tea?', 'tea', 'yo-tea'],
-    'crime': ['crime', 'crimes'],
-    '67': ['67'],
-    'chud': ['chud', 'chuds'],
-    'cute': ['cute', 'cuuute', 'cuuuuute', 'cuuuuuute', 'cuuuuuuute'], // Val saying cute variations
-    'mah wife': ['mah wife', 'maah wiife', 'maaah wiiife', 'maah wife', 'mah wiife', 'mah wiiife', 'mah wiiiiffe', 'mah wiiiiiffe', 'mah wiiiife', 'mah wiiiiife', 'mah wiiiiffee', 'mah wiifffee', 'mah wiifffee', 'mah wiiiifeee', 'mah wiiiffee', 'mah wifffee', 'mah wiiffee'],
-    'sister wives': ['sister wives', 'sister wife'],
-    'wolves den': ['wolves den', 'wolves\' den', 'wolfs den'],
-    'slut': ['slut'],
-    'phys ranged': ['phys ranged']
-  }
 }
 
 // Enhanced word extraction using Chat Analytics tokenization
@@ -127,7 +115,6 @@ function aggregateStats() {
       jobMentions: {},
       raidMentions: {},
       contentMentions: {},
-      dedContentMentions: {},
     },
     topMessages: [],
   dateRange: {
@@ -452,40 +439,23 @@ function aggregateStats() {
         
         // Job mentions
         FFXIV_KEYWORDS.jobs.forEach(job => {
-          // Use word boundaries to avoid substring matches
-          const regex = new RegExp(`\\b${job.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i')
-          if (regex.test(contentLower)) {
+          if (contentLower.includes(job)) {
             stats.ffxiv.jobMentions[job] = (stats.ffxiv.jobMentions[job] || 0) + 1
           }
         })
-
+        
         // Raid mentions
         FFXIV_KEYWORDS.raids.forEach(raid => {
-          // Use word boundaries to avoid substring matches
-          const regex = new RegExp(`\\b${raid.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i')
-          if (regex.test(contentLower)) {
+          if (contentLower.includes(raid)) {
             stats.ffxiv.raidMentions[raid] = (stats.ffxiv.raidMentions[raid] || 0) + 1
           }
         })
         
         // Content mentions
         FFXIV_KEYWORDS.content.forEach(content => {
-          // Use word boundaries to avoid substring matches
-          const regex = new RegExp(`\\b${content.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i')
-          if (regex.test(contentLower)) {
+          if (contentLower.includes(content)) {
             stats.ffxiv.contentMentions[content] = (stats.ffxiv.contentMentions[content] || 0) + 1
           }
-        })
-
-        // DED-specific content mentions
-        Object.entries(FFXIV_KEYWORDS.dedContent).forEach(([category, keywords]) => {
-          keywords.forEach(keyword => {
-            // Use word boundaries to avoid substring matches
-            const regex = new RegExp(`\\b${keyword.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i')
-            if (regex.test(contentLower)) {
-              stats.ffxiv.dedContentMentions[category] = (stats.ffxiv.dedContentMentions[category] || 0) + 1
-            }
-          })
         })
       }
     }
@@ -551,11 +521,6 @@ function aggregateStats() {
     .map(([raid, count]) => ({ raid, count }))
 
   const topContent = Object.entries(stats.ffxiv.contentMentions)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 10)
-    .map(([content, count]) => ({ content, count }))
-
-  const topDedContent = Object.entries(stats.ffxiv.dedContentMentions)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 10)
     .map(([content, count]) => ({ content, count }))
@@ -729,9 +694,7 @@ function aggregateStats() {
       topJobs,
       topRaids,
       topContent,
-      topDedContent,
       contentMentions: stats.ffxiv.contentMentions,
-      dedContentMentions: stats.ffxiv.dedContentMentions,
     },
   }
 
