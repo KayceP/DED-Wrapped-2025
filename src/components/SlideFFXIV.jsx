@@ -85,8 +85,8 @@ function SlideFFXIV({ stats }) {
     'crime': 'Thron:1293024631317332079',
     '67': 'stressed:1384623535951187988',
     'slut': 'mpreg.svg', // Custom pregnant man emoji
-    'wings': '🦅', // Eagle emoji for wings
-    'maps': '🗺️'  // World map emoji for maps
+    'wings': 'wings.svg', // Custom wings SVG (50% larger)
+    'maps': 'maps.png'   // Custom maps image (50% larger)
   }
 
   // Special mappings for different behavior
@@ -112,13 +112,17 @@ function SlideFFXIV({ stats }) {
     } else if (emojiMappings[content]) {
       // Create multiple floating emojis around the mouse
       const emojis = []
+      // Use larger size for wings and maps (50% increase from 2rem to 3rem)
+      const emojiSize = (content === 'wings' || content === 'maps') ? '3rem' : '2rem'
+
       for (let i = 0; i < 5; i++) {
         emojis.push({
           id: `${content}-${i}`,
           emoji: emojiMappings[content],
           offsetX: (Math.random() - 0.5) * 100, // Random offset between -50 and 50
           offsetY: (Math.random() - 0.5) * 100,
-          rotation: Math.random() * 360
+          rotation: Math.random() * 360,
+          size: emojiSize
         })
       }
       setFloatingEmojis(emojis)
@@ -679,7 +683,7 @@ function SlideFFXIV({ stats }) {
                   }}
                 />
               ) : (
-                renderEmoji(floatingEmoji.emoji, '2rem')
+                renderEmoji(floatingEmoji.emoji, floatingEmoji.size || '2rem')
               )}
             </div>
           ))}
