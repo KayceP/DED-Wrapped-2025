@@ -84,7 +84,9 @@ function SlideFFXIV({ stats }) {
     'cute': 'Lovereaper:1248711531068264592',
     'crime': 'Thron:1293024631317332079',
     '67': 'stressed:1384623535951187988',
-    'slut': 'mpreg.svg' // Custom pregnant man emoji
+    'slut': 'mpreg.svg', // Custom pregnant man emoji
+    'wings': '🦅', // Eagle emoji for wings
+    'maps': '🗺️'  // World map emoji for maps
   }
 
   // Special mappings for different behavior
