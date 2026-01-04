@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "postbuild": "if not exist dist\\data mkdir dist\\data && copy public\\data\\stats.json dist\\data\\stats.json",
+    "postbuild": "node -e \"const fs = require('fs'); const path = require('path'); const src = path.join('public', 'data', 'stats.json'); const destDir = path.join('dist', 'data'); const dest = path.join(destDir, 'stats.json'); if (!fs.existsSync(destDir)) fs.mkdirSync(destDir, { recursive: true }); fs.copyFileSync(src, dest);\"",
     "process-data": "node scripts/process-data.js",
     "search": "node tools/search-json.js",
     "analyze-puns": "node scripts/analyze-puns.js",
